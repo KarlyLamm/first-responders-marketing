@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import { site } from '../data/site';
 import { services } from '../data/services';
-import { cities } from '../data/cities';
+import { cities, placeName, regions } from '../data/cities';
 import Phone from '../components/Phone.astro';
 import bc800 from '@fontsource/barlow-condensed/files/barlow-condensed-latin-800-normal.woff2?url';
 
@@ -42,7 +42,7 @@ const org = {
     dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     opens: '00:00', closes: '23:59',
   }],
-  areaServed: cities.map((c) => ({ '@type': 'City', name: `${c.name}, MO` })),
+  areaServed: cities.map((c) => ({ '@type': 'City', name: placeName(c) })),
   knowsAbout: services.map((s) => s.name),
   founder: { '@type': 'Person', name: site.owner },
   sameAs: Object.values(site.social).filter(Boolean),
@@ -112,7 +112,7 @@ const nav = [
   <div class="alertbar">
     <div class="wrap alertbar__in">
       <span class="pulse" aria-hidden="true"></span>
-      <span>Crews on call 24/7 across St. Louis and St. Charles. On-site in about {site.responseHours} hours.</span>
+      <span>Crews on call 24/7. On-site in about {site.responseHours} hours across the St. Louis metro.</span>
       <a href={site.phoneHref} data-track="call-alertbar">{site.phone}</a>
     </div>
   </div>
@@ -160,7 +160,7 @@ const nav = [
       </div>
       <div>
         <p class="ftr__h">Service areas</p>
-        <ul class="ftr__cities">{cities.map((c) => <li><a href={`/areas/${c.slug}/`}>{c.name}</a></li>)}</ul>
+        <ul class="ftr__cities">{cities.map((c) => <li><a href={`/areas/${c.slug}/`}>{placeName(c)}</a></li>)}</ul>
       </div>
     </div>
     <div class="wrap ftr__legal">

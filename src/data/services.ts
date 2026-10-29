@@ -24,9 +24,9 @@ export const services: Service[] = [
     title: 'Water Damage Restoration St. Louis | 24/7, On-Site in 2 Hours',
     h1: 'Water damage restoration in St. Louis',
     description:
-      'Burst pipe, leak or flood? First Responders extracts water, dries your home and rebuilds. 24/7 in St. Louis and St. Charles. Call (314) 644-8800.',
+      'Burst pipe, leak or flood? First Responders extracts water, dries your home and rebuilds. 24/7 in St. Louis and the Metro East. Call (314) 644-8800.',
     answer:
-      'First Responders Roofing & Restoration provides 24/7 water damage restoration across St. Louis and St. Charles counties, with a crew on-site within about two hours of your call. We stop the source, extract standing water, dry the structure with commercial dehumidifiers and air movers, document everything for your insurance company, and rebuild what had to be removed.',
+      'First Responders Roofing & Restoration provides 24/7 water damage restoration across the St. Louis metro, with a crew on-site within about two hours of your call. We stop the source, extract standing water, dry the structure with commercial dehumidifiers and air movers, document everything for your insurance company, and rebuild what had to be removed.',
     signs: [
       'Standing water on floors or in the basement',
       'Wet carpet, swollen baseboards or bubbling paint',
@@ -59,7 +59,7 @@ export const services: Service[] = [
     title: 'Flooded Basement Cleanup St. Louis | 24/7 Water Removal',
     h1: 'Flooded basement cleanup and water removal',
     description:
-      'Flooded basement in St. Louis or St. Charles? We pump it out, dry it and restore it, day or night. Call First Responders at (314) 644-8800.',
+      'Flooded basement in the St. Louis area? We pump it out, dry it and restore it, day or night. Call First Responders at (314) 644-8800.',
     answer:
       'A flooded basement needs water removed and the space dried fast to stop mold and structural damage. First Responders pumps out the water, removes wet carpet and drywall that cannot be saved, dries the space with commercial equipment, and handles the rebuild, 24 hours a day across the St. Louis area.',
     signs: [
@@ -94,7 +94,7 @@ export const services: Service[] = [
     description:
       'Sewer backup in your home or business? First Responders removes contaminated water, sanitizes and rebuilds. 24/7 St. Louis service: (314) 644-8800.',
     answer:
-      'Sewage backup is contaminated water and should be handled by a trained crew with protective equipment. First Responders removes the sewage, cuts out porous materials it touched, disinfects every surface, dries the area and rebuilds, 24/7 across St. Louis and St. Charles.',
+      'Sewage backup is contaminated water and should be handled by a trained crew with protective equipment. First Responders removes the sewage, cuts out porous materials it touched, disinfects every surface, dries the area and rebuilds, 24/7 across the St. Louis metro.',
     signs: [
       'Dark water coming up through floor drains, toilets or tubs',
       'Gurgling drains or a sewage smell in the basement',
@@ -155,7 +155,7 @@ export const services: Service[] = [
     title: 'Mold Remediation & Testing St. Louis | First Responders',
     h1: 'Mold testing and remediation',
     description:
-      'Musty smell or visible mold? We find the moisture source, contain the area and remove mold safely. St. Louis and St. Charles: (314) 644-8800.',
+      'Musty smell or visible mold? We find the moisture source, contain the area and remove mold safely. St. Louis area: (314) 644-8800.',
     answer:
       'Mold grows where moisture stays, so remediation only lasts when the water source is fixed. First Responders tests and inspects, contains the affected area so spores do not spread, removes contaminated materials, cleans what can be saved, and repairs the leak that caused it.',
     signs: [
@@ -220,7 +220,7 @@ export const services: Service[] = [
     title: 'Hail Damage Roof Repair St. Louis | Free Hail Inspection',
     h1: 'Hail damage roof repair and replacement',
     description:
-      'Free hail damage roof inspection in St. Louis and St. Charles. We document damage, meet your adjuster and replace your roof. Call (314) 644-8800.',
+      'Free hail damage roof inspection in St. Louis and the Metro East. We document damage, meet your adjuster and replace your roof. Call (314) 644-8800.',
     answer:
       'Hail bruises and cracks shingles in ways that are hard to see from the ground but shorten a roof’s life and lead to leaks. First Responders offers free hail inspections across the St. Louis area, documents every hit for your insurer, meets the adjuster, and repairs or replaces the roof.',
     signs: [
@@ -253,7 +253,7 @@ export const services: Service[] = [
     description:
       'Roof leaking now or torn open by a storm or tree? First Responders tarps and repairs roofs 24/7 across St. Louis. Call (314) 644-8800.',
     answer:
-      'When a roof is leaking or open to the weather, the first job is to stop water from getting in. First Responders sends a crew 24/7 to tarp or temporarily seal the roof, remove water inside, and then make the permanent repair, across St. Louis and St. Charles counties.',
+      'When a roof is leaking or open to the weather, the first job is to stop water from getting in. First Responders sends a crew 24/7 to tarp or temporarily seal the roof, remove water inside, and then make the permanent repair, across the St. Louis metro.',
     signs: [
       'Water actively dripping through a ceiling',
       'A tree or large limb on the roof',

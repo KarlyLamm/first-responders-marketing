@@ -1,7 +1,7 @@
 // /llms-full.txt: the full text of every service, area and guide in one file for AI assistants.
 import { site } from '../data/site';
 import { services } from '../data/services';
-import { cities } from '../data/cities';
+import { cities, placeName } from '../data/cities';
 export function GET() {
   const posts = Object.values(import.meta.glob('./resources/*.md', { eager: true })) as any[];
   const svc = services.map((s) => `## ${s.name}
@@ -17,7 +17,7 @@ ${s.steps.map((st, i) => `${i + 1}. ${st.name}: ${st.text}`).join('\n')}
 Insurance: ${s.insurance}
 
 ${s.faqs.map((f) => `Q: ${f.q}\nA: ${f.a}`).join('\n\n')}`).join('\n\n---\n\n');
-  const areas = cities.map((c) => `## ${c.name}, MO (${c.county})
+  const areas = cities.map((c) => `## ${placeName(c)} (${c.county})
 URL: ${site.url}/areas/${c.slug}/
 ZIP codes: ${c.zips.join(', ')}. Nearby: ${c.nearby.join(', ')}.
 ${c.local}`).join('\n\n');

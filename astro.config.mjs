@@ -1,7 +1,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://firstrespondersroofingandrestoration.com',
+  site: 'https://firstrespondersrestoration.us',
   trailingSlash: 'always',
   build: { inlineStylesheets: 'always' },
   compressHTML: true,

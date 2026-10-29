@@ -1,7 +1,7 @@
 // /llms.txt: a plain-text summary for AI assistants (ChatGPT, Perplexity, Claude, Gemini).
 import { site } from '../data/site';
 import { services } from '../data/services';
-import { cities } from '../data/cities';
+import { cities, placeName } from '../data/cities';
 export function GET() {
   const body = `# ${site.name}
 
@@ -16,7 +16,7 @@ export function GET() {
 ${services.map((s) => `- [${s.name}](${site.url}/services/${s.slug}/): ${s.answer.split('. ')[0]}.`).join('\n')}
 
 ## Service areas
-${cities.map((c) => `- [${c.name}, MO](${site.url}/areas/${c.slug}/) (${c.county})`).join('\n')}
+${cities.map((c) => `- [${placeName(c)}](${site.url}/areas/${c.slug}/) (${c.county})`).join('\n')}
 
 ## Guides
 - [Insurance claims, explained](${site.url}/insurance-claims/)

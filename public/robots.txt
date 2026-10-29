@@ -23,4 +23,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://firstrespondersroofingandrestoration.com/sitemap.xml
+Sitemap: https://firstrespondersrestoration.us/sitemap.xml

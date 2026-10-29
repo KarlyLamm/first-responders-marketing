@@ -1,5 +1,5 @@
 import { services, cityServiceSlugs } from './services';
-import { cities } from './cities';
+import { cities, placeName } from './cities';
 // Every indexable URL, with priority hints. Used by sitemap.xml and the HTML sitemap.
 export function allRoutes() {
   const posts = Object.values(import.meta.glob('../pages/resources/*.md', { eager: true })) as any[];
@@ -9,7 +9,7 @@ export function allRoutes() {
     { path: '/services/', name: 'Services', priority: 0.8, freq: 'monthly' },
     ...services.map((s) => ({ path: `/services/${s.slug}/`, name: s.name, priority: 0.9, freq: 'monthly' })),
     { path: '/areas/', name: 'Service areas', priority: 0.8, freq: 'monthly' },
-    ...cities.map((c) => ({ path: `/areas/${c.slug}/`, name: `${c.name}, MO`, priority: 0.8, freq: 'monthly' })),
+    ...cities.map((c) => ({ path: `/areas/${c.slug}/`, name: placeName(c), priority: 0.8, freq: 'monthly' })),
     ...cities.flatMap((c) => services.filter((s) => cityServiceSlugs.includes(s.slug)).map((s) => ({ path: `/areas/${c.slug}/${s.slug}/`, name: `${s.name} in ${c.name}`, priority: 0.7, freq: 'monthly' }))),
     { path: '/insurance-claims/', name: 'Insurance claims', priority: 0.8, freq: 'monthly' },
     { path: '/first-responders/', name: 'First responder program', priority: 0.6, freq: 'monthly' },

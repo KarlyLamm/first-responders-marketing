@@ -8,32 +8,39 @@ import ReviewStrip from '../components/ReviewStrip.astro';
 import Phone from '../components/Phone.astro';
 import { site } from '../data/site';
 import { serviceBySlug, cityServiceSlugs, type Service, type Faq } from '../data/services';
-import { cities, type City } from '../data/cities';
+import { cities, placeName, countyName, stateNames, type City } from '../data/cities';
 
 interface Props { service: Service; city?: City }
 const { service: s, city } = Astro.props;
+const local = !city || city.region === 'stl'; // 2-hour response promise only applies to the St. Louis metro
 const place = city ? city.name : 'St. Louis';
-const where = city ? `${city.name}, MO` : 'St. Louis';
+const where = city ? placeName(city) : 'St. Louis';
+const Name = s.name.replace(/^./, (c) => c.toUpperCase());
 
-const h1 = city ? `${s.name.charAt(0).toUpperCase() + s.name.slice(1)} in ${city.name}, MO` : s.h1;
-const title = city ? `${s.name.replace(/^./, (c) => c.toUpperCase())} ${city.name}, MO | 24/7 | First Responders` : s.title;
+const h1 = city ? `${Name} in ${placeName(city)}` : s.h1;
+const title = city ? `${Name} ${placeName(city)} | 24/7 | First Responders` : s.title;
 const description = city
-  ? `${s.name.replace(/^./, (c) => c.toUpperCase())} in ${city.name}, MO, 24/7. On-site in about ${site.responseHours} hours, insurance claim help, one team from start to rebuild. Call ${site.phone}.`
+  ? `${Name} in ${placeName(city)}, 24/7.${local ? ` On-site in about ${site.responseHours} hours.` : ''} Insurance claim help, one team from start to rebuild. Call ${site.phone}.`
   : s.description;
-const answer = city
-  ? s.answer.replace(/across St\. Louis and St\. Charles( counties)?|across the St\. Louis area|across St\. Louis/, `in ${city.name} and across ${city.county}`)
-  : s.answer;
+let answer = s.answer;
+if (city) {
+  answer = answer.replace(/across the St\. Louis metro|across the St\. Louis area|across St\. Louis/, `in ${city.name} and across ${city.county}`);
+  if (!local) answer = answer.replace(/, with a crew on-site within about two hours of your call/, '').replace(/ the same day/, '').replace(/, 24 hours a day/, '');
+}
 const faqs: Faq[] = city
-  ? [{ q: `How fast can you get to ${city.name}?`, a: `We dispatch 24/7 from our shop at ${site.address.street} in St. Louis County and are typically on-site in about ${site.responseHours} hours, often sooner.` }, ...s.faqs]
+  ? [local
+      ? { q: `How fast can you get to ${city.name}?`, a: `We dispatch 24/7 from our shop at ${site.address.street} in St. Louis County and are typically on-site in about ${site.responseHours} hours.` }
+      : { q: `Do you really serve ${city.name}?`, a: `Yes. ${city.name} and ${city.county} are part of our storm and restoration service area. Call ${site.phone} any time and we will tell you when a crew can be there.` },
+    ...s.faqs]
   : s.faqs;
 const url = new URL(Astro.url.pathname, site.url).href;
 const schema = [
   {
     '@context': 'https://schema.org', '@type': 'Service', '@id': `${url}#service`,
-    name: city ? `${s.name} in ${city.name}, MO` : s.name,
+    name: city ? `${s.name} in ${placeName(city)}` : s.name,
     serviceType: s.name, description: answer, url,
     provider: { '@id': `${site.url}/#business` },
-    areaServed: city ? { '@type': 'City', name: `${city.name}, MO`, containedInPlace: { '@type': 'AdministrativeArea', name: `${city.county}, Missouri` } } : cities.map((c) => ({ '@type': 'City', name: `${c.name}, MO` })),
+    areaServed: city ? { '@type': 'City', name: placeName(city), containedInPlace: { '@type': 'AdministrativeArea', name: `${city.county}, ${stateNames[city.state]}` } } : cities.map((c) => ({ '@type': 'City', name: placeName(c) })),
     hoursAvailable: s.emergency ? { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '00:00', closes: '23:59' } : undefined,
   },
   { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
@@ -54,7 +61,7 @@ const preset = s.slug.includes('water') || s.slug.includes('flood') ? 'Water or 
         <div class="shero__actions"><Phone variant="hivis" track={`call-svc-${s.slug}`} label="Call 24/7" /></div>
         {city && <p class="shero__local">{city.local}</p>}
       </div>
-      <ContactCard preset={preset} heading={s.emergency ? 'Send a crew' : 'Book a free inspection'} />
+      <ContactCard preset={preset} fast={local} heading={s.emergency ? 'Send a crew' : 'Book a free inspection'} />
     </div>
   </section>
   <div class="chevron-band" aria-hidden="true"></div>
@@ -94,14 +101,14 @@ const preset = s.slug.includes('water') || s.slug.includes('flood') ? 'Water or 
       <div>
         <h2>{city ? 'Nearby areas' : 'Where we offer it'}</h2>
         <ul class="links links--cities">
-          {(city ? (cities.filter((c) => c.slug !== city.slug && c.county === city.county).length ? cities.filter((c) => c.slug !== city.slug && c.county === city.county) : cities.filter((c) => c.slug !== city.slug)) : cities).map((c) => (
+          {(city ? (cities.filter((c) => c.slug !== city.slug && c.county === city.county).length ? cities.filter((c) => c.slug !== city.slug && c.county === city.county) : cities.filter((c) => c.slug !== city.slug && c.region === city.region)) : cities).map((c) => (
             <li><a href={hasCityPages ? `/areas/${c.slug}/${s.slug}/` : `/areas/${c.slug}/`}>{c.name}</a></li>
           ))}
         </ul>
       </div>
     </div>
   </section>
-  <CtaBand heading={s.emergency ? `${s.name.replace(/^./, (c) => c.toUpperCase())} emergency in ${where}?` : `Get a free inspection in ${where}`} />
+  <CtaBand text={local ? undefined : 'Call and a person answers, 24/7. We will tell you exactly when a crew can be there.'} heading={s.emergency ? `${s.name.replace(/^./, (c) => c.toUpperCase())} emergency in ${where}?` : `Get a free inspection in ${where}`} />
 </Base>
 
 <style>

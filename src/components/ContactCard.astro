@@ -1,8 +1,8 @@
 ---
 // Contact card: call or text only (no web form until a lead endpoint is set up).
 import { site } from '../data/site';
-interface Props { heading?: string; preset?: string }
-const { heading = 'Get a crew or a free inspection', preset = '' } = Astro.props;
+interface Props { heading?: string; preset?: string; fast?: boolean }
+const { heading = 'Get a crew or a free inspection', preset = '', fast = true } = Astro.props;
 const body = encodeURIComponent(`Hi, I need help${preset ? ` with ${preset.toLowerCase()}` : ''}. My address is: `);
 ---
 <div class="cc">
@@ -17,7 +17,7 @@ const body = encodeURIComponent(`Hi, I need help${preset ? ` with ${preset.toLow
     <span class="cc__num">{site.sms}</span>
   </a>
   <ul class="cc__list">
-    <li>On-site in about {site.responseHours} hours</li>
+    {fast ? <li>On-site in about {site.responseHours} hours</li> : <li>Storm and hurricane response</li>}
     <li>Free roof and storm inspections</li>
     <li>We work directly with your insurance</li>
   </ul>

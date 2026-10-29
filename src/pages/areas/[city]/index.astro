@@ -4,29 +4,30 @@ import ContactCard from '../../../components/ContactCard.astro';
 import ReviewStrip from '../../../components/ReviewStrip.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import Phone from '../../../components/Phone.astro';
-import { cities, type City } from '../../../data/cities';
+import { cities, regions, placeName, stateNames, type City } from '../../../data/cities';
 import { services, cityServiceSlugs } from '../../../data/services';
 import { site } from '../../../data/site';
 export function getStaticPaths() { return cities.map((city) => ({ params: { city: city.slug }, props: { city } })); }
 const { city } = Astro.props as { city: City };
+const local = city.region === 'stl';
 const url = new URL(Astro.url.pathname, site.url).href;
 const schema = [{
-  '@context': 'https://schema.org', '@type': 'WebPage', url, name: `Roofing and restoration in ${city.name}, MO`,
+  '@context': 'https://schema.org', '@type': 'WebPage', url, name: `Roofing and restoration in ${placeName(city)}`,
   about: { '@id': `${site.url}/#business` },
-  mentions: { '@type': 'City', name: `${city.name}, MO`, containedInPlace: { '@type': 'AdministrativeArea', name: `${city.county}, Missouri` } },
+  mentions: { '@type': 'City', name: placeName(city), containedInPlace: { '@type': 'AdministrativeArea', name: `${city.county}, ${stateNames[city.state]}` } },
 }];
-const near = cities.filter((c) => c.county === city.county && c.slug !== city.slug);
+const near = cities.filter((c) => c.region === city.region && c.slug !== city.slug);
 ---
-<Base title={`${city.name}, MO Roofing & Water Damage Restoration | 24/7 | First Responders`} description={`24/7 water damage restoration, storm damage and roofing in ${city.name}, MO. On-site in about ${site.responseHours} hours. Insurance claim help. Call ${site.phone}.`} schema={schema} crumbs={[{ name: 'Areas', href: '/areas/' }, { name: city.name, href: `/areas/${city.slug}/` }]}>
+<Base title={`${placeName(city)} Roofing & Water Damage Restoration | 24/7 | First Responders`} description={`24/7 water damage restoration, storm damage and roofing in ${placeName(city)} and ${city.county}.${local ? ` On-site in about ${site.responseHours} hours.` : ''} Insurance claim help. Call ${site.phone}.`} schema={schema} crumbs={[{ name: 'Areas', href: '/areas/' }, { name: city.name, href: `/areas/${city.slug}/` }]}>
   <section class="chero">
     <div class="wrap chero__in">
       <div>
         <h1><span class="chero__city">{city.name}</span> roofing and restoration, 24/7</h1>
-        <p class="chero__p">Water damage, storm damage, roof leaks, fire and sewage cleanup in {city.name} and across {city.county}. A crew on-site in about {site.responseHours} hours, day or night.</p>
+        <p class="chero__p">Water damage, storm damage, roof leaks, fire and sewage cleanup in {city.name} and across {city.county}, {stateNames[city.state]}.{local ? ` A crew on-site in about ${site.responseHours} hours, day or night.` : ' Call any time, day or night.'}</p>
         <p class="chero__p">{city.local}</p>
         <Phone variant="hivis" track={`call-city-${city.slug}`} label="Call 24/7" />
       </div>
-      <ContactCard heading={`Get help in ${city.name}`} />
+      <ContactCard heading={`Get help in ${city.name}`} fast={local} />
     </div>
   </section>
   <div class="chevron-band" aria-hidden="true"></div>
@@ -34,22 +35,22 @@ const near = cities.filter((c) => c.county === city.county && c.slug !== city.sl
     <h2>Services in {city.name}</h2>
     <ul class="clist">
       {services.map((s) => (
-        <li><a href={cityServiceSlugs.includes(s.slug) ? `/areas/${city.slug}/${s.slug}/` : `/services/${s.slug}/`}><b>{s.name}</b><span>{s.answer.split('. ')[0]}.</span></a></li>
+        <li><a href={cityServiceSlugs.includes(s.slug) ? `/areas/${city.slug}/${s.slug}/` : `/services/${s.slug}/`}><b>{s.name}</b><span>{s.answer.split('. ')[0].replace(/across the St\. Louis metro|across the St\. Louis area|across St\. Louis/, `in ${city.name}`).replace(/, with a crew on-site within about two hours of your call/, local ? ', with a crew on-site within about two hours of your call' : '')}.</span></a></li>
       ))}
     </ul>
     <div class="facts">
       <div><h3>ZIP codes we serve</h3><p>{city.zips.join(', ')}</p></div>
       <div><h3>Neighborhoods and nearby</h3><p>{city.nearby.join(', ')}</p></div>
-      <div><h3>Response</h3><p>Dispatched from {site.address.street}, St. Louis County. 24 hours a day, 7 days a week.</p></div>
+      <div><h3>{regions[city.region].name}</h3><p>{regions[city.region].blurb}</p></div>
     </div>
   </div></section>
   <section class="section section--concrete"><div class="wrap"><h2>What customers say</h2><ReviewStrip /></div></section>
   {near.length > 0 && (
     <section class="section"><div class="wrap"><h2>Also serving near {city.name}</h2>
-      <p class="near">{near.map((c, i) => (<><a href={`/areas/${c.slug}/`}>{c.name}</a>{i < near.length - 1 && ', '}</>))}</p>
+      <p class="near">{near.map((c, i) => (<><a href={`/areas/${c.slug}/`}>{placeName(c)}</a>{i < near.length - 1 && ', '}</>))}</p>
     </div></section>
   )}
-  <CtaBand heading={`Damage at your ${city.name} property?`} />
+  <CtaBand heading={`Damage at your ${city.name} property?`} text={local ? undefined : 'Call and a person answers, 24/7. We will tell you exactly when a crew can be there.'} />
 </Base>
 <style>
   .chero { background: var(--navy); color: #c4d0de; }

@@ -9,7 +9,7 @@ export const site = {
   name: 'First Responders Roofing & Restoration',
   shortName: 'First Responders',
   legalName: 'First Responders Roofing and Restoration LLC',
-  url: 'https://firstrespondersroofingandrestoration.com',
+  url: 'https://firstrespondersrestoration.us',
   phone: '(314) 644-8800',
   phoneHref: 'tel:+13146448800',
   sms: '(314) 943-6606', // CONFIRM: listed on BBB as SMS line
@@ -27,7 +27,7 @@ export const site = {
   owner: 'Jeffrey Lamm',
   manager: 'Marissa Goldsmith',
   responseHours: 2, // public listings: "we respond to emergency calls within two hours"
-  serviceRegion: 'St. Louis County, St. Louis City, St. Charles County and the Lake of the Ozarks',
+  serviceRegion: 'St. Louis, St. Louis County and Jefferson County, Missouri; Madison and St. Clair counties, Illinois; Lake Charles and Calcasieu Parish, Louisiana; and Carolina Beach, North Carolina',
   // Credentials: only shown when filled in. Do not list anything not actually held.
   credentials: [] as { name: string; detail: string }[],
   // e.g. { name: 'IICRC Certified Firm', detail: 'Water Damage Restoration (WRT), Applied Structural Drying (ASD)' }
