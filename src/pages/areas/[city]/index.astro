@@ -18,7 +18,7 @@ const schema = [{
 }];
 const near = cities.filter((c) => c.region === city.region && c.slug !== city.slug);
 ---
-<Base title={`${placeName(city)} Roofing & Water Damage Restoration | 24/7 | First Responders`} description={`24/7 water damage restoration, storm damage and roofing in ${placeName(city)} and ${city.county}.${local ? ` On-site in about ${site.responseHours} hours.` : ''} Insurance claim help. Call ${site.phone}.`} schema={schema} crumbs={[{ name: 'Areas', href: '/areas/' }, { name: city.name, href: `/areas/${city.slug}/` }]}>
+<Base title={`${placeName(city)} Roofing & Water Damage Restoration | 24/7 | First Responders`} description={`24/7 water damage restoration, storm damage and roofing in ${placeName(city)} and ${city.county}.${local ? ` On-site in about ${site.responseHours} hours.` : ''} Photo-documented estimates for your claim. Call ${site.phone}.`} schema={schema} crumbs={[{ name: 'Areas', href: '/areas/' }, { name: city.name, href: `/areas/${city.slug}/` }]}>
   <section class="chero">
     <div class="wrap chero__in">
       <div>

@@ -13,8 +13,8 @@ import { cities } from '../data/cities';
 
 const faqs = [
   { q: 'Who do I call for water damage in St. Louis at night?', a: `First Responders Roofing & Restoration answers 24/7 at ${site.phone} and has a crew on-site in about ${site.responseHours} hours across the St. Louis metro.` },
-  { q: 'Do you do both roofing and water damage restoration?', a: 'Yes. Storms often damage the roof and the inside of the house at the same time. We tarp and repair the roof, dry and restore the interior, and handle both under one claim.' },
-  { q: 'Do you work with my insurance company?', a: 'Yes. We document the damage with photos, moisture readings and an itemized estimate, and meet your adjuster on-site. You pay your deductible.' },
+  { q: 'Do you do both roofing and water damage restoration?', a: 'Yes. Storms often damage the roof and the inside of the house at the same time. We tarp and repair the roof, dry and restore the interior, and document both for the same claim.' },
+  { q: 'Can you help with my insurance claim?', a: 'You file and manage the claim with your insurer. We document the damage with photos, moisture readings and an itemized estimate, and show the damage to your adjuster on-site. You pay your deductible; we never waive it.' },
   { q: 'What areas do you serve?', a: `${site.serviceRegion}. In the St. Louis metro that includes ${cities.filter((c) => c.region === 'stl').slice(0, 10).map((c) => c.name).join(', ')} and more.` },
   { q: 'Why are you called First Responders?', a: `Because that is how we work: we show up fast when something goes wrong. And we back the people who do it for a living. ${site.giveback}` },
 ];
@@ -27,7 +27,7 @@ const roof = services.filter((s) => s.group === 'roofing');
 ---
 <Base
   title="First Responders Roofing & Restoration | 24/7 St. Louis Water Damage & Roofing"
-  description="24/7 water damage restoration, storm damage and roofing in St. Louis and the Metro East. On-site in about 2 hours. We handle your insurance claim. Call (314) 644-8800."
+  description="24/7 water damage restoration, storm damage and roofing in St. Louis and the Metro East. On-site in about 2 hours. Photo-documented estimates for your insurance claim. Call (314) 644-8800."
   schema={schema}
 >
   <section class="hero">
@@ -37,7 +37,7 @@ const roof = services.filter((s) => s.group === 'roofing');
           <span class="hero__big"><span>Water's in.</span><span>Roof's open.</span><span>We're on the way.</span></span>
           <span class="hero__sub">24/7 water damage restoration and storm roofing in St. Louis, the Metro East and beyond</span>
         </h1>
-        <p class="hero__lede">One call gets a crew to your door in about {site.responseHours} hours, day or night. We stop the damage, dry it out, fix the roof, deal with your insurance company and rebuild.</p>
+        <p class="hero__lede">One call gets a crew to your door in about {site.responseHours} hours, day or night. We stop the damage, dry it out, fix the roof, document everything for your insurance claim and rebuild.</p>
         <div class="hero__actions">
           <Phone track="call-hero" label="Call 24/7" />
           <a class="btn btn--ghost" href={`${site.smsHref}`} data-track="text-hero">Text us photos</a>

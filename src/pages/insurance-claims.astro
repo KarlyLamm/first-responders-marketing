@@ -5,12 +5,12 @@ const faqs = [
   { q: 'Do I call my insurance company or a contractor first?', a: 'If damage is ongoing, call us first so the damage is stopped, then report the claim. Insurers expect you to prevent further damage, and emergency work is normally part of the claim.' },
   { q: 'Can I choose my own contractor?', a: 'Yes. You can choose who repairs your home. Your insurer may recommend vendors, but you are not required to use them.' },
   { q: 'What does my deductible mean?', a: 'It is the part of the covered loss you pay. The insurer pays the approved amount above it. Some policies have a separate, often percentage-based, deductible for wind and hail.' },
-  { q: 'What if the adjuster misses damage?', a: 'We document what we find and can request a re-inspection or submit a supplement with photos and measurements for items that were missed or found during work.' },
+  { q: 'What if the adjuster misses damage?', a: 'We give you photos and measurements of anything that was missed or found during work, so you can ask your insurer for a re-inspection. Rules on what a contractor can do in a claim vary by state, and in Louisiana contractors may not negotiate a claim for you.' },
   { q: 'How long do I have to file a claim?', a: 'It depends on the policy. Many require prompt notice. Check your policy and report damage as soon as you find it.' },
 ];
 const schema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }];
 ---
-<Page title="Insurance Claim Help for Roof & Water Damage | St. Louis | First Responders" description="How roof, hail and water damage insurance claims work in Missouri, step by step. We document damage, meet your adjuster and handle the paperwork." h1="Insurance claims, explained" lede="Most of our jobs go through insurance. Here is how a claim works and what we do at each step, so you get paid for the damage you actually have." crumbs={[{ name: 'Insurance claims', href: '/insurance-claims/' }]} schema={schema}>
+<Page title="How Roof & Water Damage Insurance Claims Work | First Responders" description="How roof, hail and water damage insurance claims work in Missouri, step by step. We document damage, write itemized estimates and show the damage to your adjuster." h1="Insurance claims, explained" lede="Most of our jobs go through insurance. Here is how a claim works and what we do at each step, so you get paid for the damage you actually have." crumbs={[{ name: 'Insurance claims', href: '/insurance-claims/' }]} schema={schema}>
   <section class="section"><div class="wrap prose" style="max-width:860px">
     <h2>The claim, step by step</h2>
     <ol>
@@ -18,9 +18,9 @@ const schema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEnti
       <li><b>Document.</b> We photograph and measure everything, and log moisture readings for water losses.</li>
       <li><b>Report the claim.</b> You call your insurer or file online. We give you what you need to describe the loss.</li>
       <li><b>Adjuster inspection.</b> We meet the adjuster on-site and point out every damaged area.</li>
-      <li><b>Estimate and approval.</b> The insurer approves a scope. We review it against our own estimate, prepared in the same line-item format insurers use, and flag anything missing.</li>
-      <li><b>Work and supplements.</b> We do the work. Hidden damage found along the way, like rotted decking, is documented and submitted.</li>
-      <li><b>Final payment.</b> You pay your deductible. Mortgage companies sometimes co-sign checks, and we walk you through that too.</li>
+      <li><b>Estimate and approval.</b> The insurer approves a scope. You get our own itemized estimate, written in the same line-item format insurers use, so you can compare it with the approved scope.</li>
+      <li><b>Work and supplements.</b> We do the work. Hidden damage found along the way, like rotted decking, is photographed and documented so you can share it with your insurer.</li>
+      <li><b>Final payment.</b> You pay your deductible. Mortgage companies sometimes co-sign checks, and we explain how that usually works.</li>
     </ol>
     <h2>Common claim types we handle</h2>
     <ul>
@@ -30,7 +30,7 @@ const schema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEnti
       <li><a href="/services/fire-smoke-damage-restoration/">Fire and smoke damage</a></li>
       <li><a href="/services/sewage-cleanup/">Sewer backups (with backup coverage)</a></li>
     </ul>
-    <p>This page is general information, not legal advice. Your policy decides what is covered.</p>
+    <p>This page is general information, not legal or insurance advice. Your policy decides what is covered, and you manage your claim with your insurer. We never waive or pay deductibles.</p>
     <FaqList faqs={faqs} heading="Insurance questions" />
   </div></section>
 </Page>

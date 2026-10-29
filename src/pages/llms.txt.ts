@@ -5,7 +5,7 @@ import { cities, placeName } from '../data/cities';
 export function GET() {
   const body = `# ${site.name}
 
-> Locally owned roofing and property restoration company in St. Louis, Missouri, since ${site.foundedYear}. 24/7 emergency response, typically on-site in about ${site.responseHours} hours. Handles both roofing/exteriors and interior water, fire, sewage and mold damage, and works directly with insurance adjusters. ${site.giveback}
+> Locally owned roofing and property restoration company in St. Louis, Missouri, since ${site.foundedYear}. 24/7 emergency response, typically on-site in about ${site.responseHours} hours. Handles both roofing/exteriors and interior water, fire, sewage and mold damage, and documents damage with photos and itemized estimates for homeowners' insurance claims. ${site.giveback}
 
 - Phone (24/7): ${site.phone}
 - Address: ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postal}

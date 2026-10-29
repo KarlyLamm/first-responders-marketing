@@ -20,7 +20,7 @@ const Name = s.name.replace(/^./, (c) => c.toUpperCase());
 const h1 = city ? `${Name} in ${placeName(city)}` : s.h1;
 const title = city ? `${Name} ${placeName(city)} | 24/7 | First Responders` : s.title;
 const description = city
-  ? `${Name} in ${placeName(city)}, 24/7.${local ? ` On-site in about ${site.responseHours} hours.` : ''} Insurance claim help, one team from start to rebuild. Call ${site.phone}.`
+  ? `${Name} in ${placeName(city)}, 24/7.${local ? ` On-site in about ${site.responseHours} hours.` : ''} Photo-documented estimates for your claim, one team from start to rebuild. Call ${site.phone}.`
   : s.description;
 let answer = s.answer;
 if (city) {
@@ -76,7 +76,7 @@ const preset = s.slug.includes('water') || s.slug.includes('flood') ? 'Water or 
       <aside class="ins">
         <h2>Insurance</h2>
         <p>{s.insurance}</p>
-        <a href="/insurance-claims/">How we help with claims</a>
+        <a href="/insurance-claims/">How insurance claims work</a>
         {city && (
           <div class="ins__local">
             <h3>Serving {city.name}</h3>

@@ -42,7 +42,7 @@ export const services: Service[] = [
       { name: 'Rebuild', text: 'Drywall, flooring, cabinets and paint are replaced by the same team, so you do not have to hire a second contractor.' },
     ],
     insurance:
-      'Most homeowners policies cover sudden and accidental water damage, like a burst pipe or a failed supply line. Gradual leaks and outside flooding are often treated differently. We work directly with your adjuster and use the same estimating format insurers use.',
+      'Most homeowners policies cover sudden and accidental water damage, like a burst pipe or a failed supply line. Gradual leaks and outside flooding are often treated differently. We document the damage and write an itemized estimate in the same format insurers use, and we walk the property with your adjuster.',
     faqs: [
       { q: 'How fast should water damage be dried out?', a: 'Start within 24 to 48 hours. After that, mold can begin to grow and materials like drywall and subfloor swell and have to be replaced instead of dried. Call us as soon as you see water.' },
       { q: 'Does homeowners insurance cover water damage in Missouri?', a: 'Usually yes when the water was sudden and accidental, such as a burst pipe or appliance failure. Flooding from outside typically needs separate flood coverage, and slow leaks may be excluded. Check your policy, and we can walk through it with you and your adjuster.' },
@@ -187,7 +187,7 @@ export const services: Service[] = [
     title: 'Storm Damage Repair St. Louis | Hail, Wind & Tornado Damage',
     h1: 'Storm damage repair for homes and businesses',
     description:
-      'Hail, wind or tornado damage in St. Louis? First Responders tarps, inspects and repairs roofs, siding, gutters and interiors, and handles the insurance claim.',
+      'Hail, wind or tornado damage in St. Louis? First Responders tarps, inspects and repairs roofs, siding, gutters and interiors, with photo documentation for your claim.',
     answer:
       'After a hail, wind or tornado event, First Responders tarps openings the same day, inspects the roof, siding, gutters and windows, documents the damage for your insurance claim, and repairs both the outside and any water damage inside. One company covers the exterior and the interior.',
     signs: [
@@ -200,7 +200,7 @@ export const services: Service[] = [
     steps: [
       { name: 'Secure', text: 'Emergency tarping and board-up stop more water from getting in.' },
       { name: 'Inspect', text: 'A full exterior inspection with photos of every damaged area.' },
-      { name: 'File and meet the adjuster', text: 'We help you file and meet your adjuster on the roof so nothing is missed.' },
+      { name: 'Document and meet the adjuster', text: 'You file the claim with your insurer. We provide photos and an itemized estimate, and walk the roof with your adjuster so the damage is seen.' },
       { name: 'Repair or replace', text: 'Roofing, siding, gutters, windows and interior repairs are completed by one team.' },
     ],
     insurance:
@@ -231,7 +231,7 @@ export const services: Service[] = [
     ],
     steps: [
       { name: 'Free inspection', text: 'We inspect the roof and exterior and photograph every damaged area.' },
-      { name: 'Claim support', text: 'You get a report to file with your insurer, and we meet the adjuster on-site.' },
+      { name: 'Damage report', text: 'You get a photo report and itemized estimate to share with your insurer, and we show the damage to your adjuster on-site.' },
       { name: 'Replacement', text: 'Tear-off, deck inspection, new underlayment, shingles, flashing and ventilation.' },
       { name: 'Clean-up', text: 'Magnetic sweep for nails and full debris haul-away.' },
     ],
