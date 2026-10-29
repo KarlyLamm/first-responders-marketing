@@ -395,3 +395,7 @@ export const services: Service[] = [
 export const serviceBySlug = Object.fromEntries(services.map((s) => [s.slug, s]));
 // Services that also get a dedicated page in every city (highest search volume).
 export const cityServiceSlugs = ['water-damage-restoration', 'flooded-basement-cleanup', 'storm-damage-repair', 'hail-damage-roof-repair', 'emergency-roof-repair', 'roof-replacement'];
+// Basements and hail are St. Louis-area problems; Gulf and Carolina coast pages skip them.
+const stlOnly = ['flooded-basement-cleanup', 'hail-damage-roof-repair'];
+export const hasCityPage = (city: { region: string }, slug: string) =>
+  cityServiceSlugs.includes(slug) && (city.region === 'stl' || !stlOnly.includes(slug));

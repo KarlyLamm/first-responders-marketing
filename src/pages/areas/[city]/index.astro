@@ -5,7 +5,7 @@ import ReviewStrip from '../../../components/ReviewStrip.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import Phone from '../../../components/Phone.astro';
 import { cities, regions, placeName, stateNames, type City } from '../../../data/cities';
-import { services, cityServiceSlugs } from '../../../data/services';
+import { services, hasCityPage } from '../../../data/services';
 import { site } from '../../../data/site';
 export function getStaticPaths() { return cities.map((city) => ({ params: { city: city.slug }, props: { city } })); }
 const { city } = Astro.props as { city: City };
@@ -35,7 +35,7 @@ const near = cities.filter((c) => c.region === city.region && c.slug !== city.sl
     <h2>Services in {city.name}</h2>
     <ul class="clist">
       {services.map((s) => (
-        <li><a href={cityServiceSlugs.includes(s.slug) ? `/areas/${city.slug}/${s.slug}/` : `/services/${s.slug}/`}><b>{s.name}</b><span>{s.answer.split('. ')[0].replace(/across the St\. Louis metro|across the St\. Louis area|across St\. Louis/, `in ${city.name}`).replace(/, with a crew on-site within about two hours of your call/, local ? ', with a crew on-site within about two hours of your call' : '')}.</span></a></li>
+        <li><a href={hasCityPage(city, s.slug) ? `/areas/${city.slug}/${s.slug}/` : `/services/${s.slug}/`}><b>{s.name}</b><span>{s.answer.split('. ')[0].replace(/across the St\. Louis metro|across the St\. Louis area|across St\. Louis/, `in ${city.name}`).replace(/, with a crew on-site within about two hours of your call/, local ? ', with a crew on-site within about two hours of your call' : '')}.</span></a></li>
       ))}
     </ul>
     <div class="facts">

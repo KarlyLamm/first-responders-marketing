@@ -7,7 +7,7 @@ import CtaBand from '../components/CtaBand.astro';
 import ReviewStrip from '../components/ReviewStrip.astro';
 import Phone from '../components/Phone.astro';
 import { site } from '../data/site';
-import { serviceBySlug, cityServiceSlugs, type Service, type Faq } from '../data/services';
+import { serviceBySlug, cityServiceSlugs, hasCityPage, type Service, type Faq } from '../data/services';
 import { cities, placeName, countyName, stateNames, type City } from '../data/cities';
 
 interface Props { service: Service; city?: City }
@@ -96,13 +96,13 @@ const preset = s.slug.includes('water') || s.slug.includes('flood') ? 'Water or 
     <div class="wrap grid grid--2">
       <div>
         <h2>Related services</h2>
-        <ul class="links">{s.related.map((r) => serviceBySlug[r]).filter(Boolean).map((r) => <li><a href={city && cityServiceSlugs.includes(r.slug) ? `/areas/${city.slug}/${r.slug}/` : `/services/${r.slug}/`}>{r.name}{city && cityServiceSlugs.includes(r.slug) ? ` in ${city.name}` : ''}</a></li>)}</ul>
+        <ul class="links">{s.related.map((r) => serviceBySlug[r]).filter(Boolean).map((r) => <li><a href={city && hasCityPage(city, r.slug) ? `/areas/${city.slug}/${r.slug}/` : `/services/${r.slug}/`}>{r.name}{city && hasCityPage(city, r.slug) ? ` in ${city.name}` : ''}</a></li>)}</ul>
       </div>
       <div>
         <h2>{city ? 'Nearby areas' : 'Where we offer it'}</h2>
         <ul class="links links--cities">
           {(city ? (cities.filter((c) => c.slug !== city.slug && c.county === city.county).length ? cities.filter((c) => c.slug !== city.slug && c.county === city.county) : cities.filter((c) => c.slug !== city.slug && c.region === city.region)) : cities).map((c) => (
-            <li><a href={hasCityPages ? `/areas/${c.slug}/${s.slug}/` : `/areas/${c.slug}/`}>{c.name}</a></li>
+            <li><a href={hasCityPage(c, s.slug) ? `/areas/${c.slug}/${s.slug}/` : `/areas/${c.slug}/`}>{c.name}</a></li>
           ))}
         </ul>
       </div>

@@ -2,7 +2,7 @@
 
 Static Astro site built to win emergency calls and rank in Google Maps, organic search and AI answers (AI Overviews, ChatGPT, Perplexity).
 
-- 134 pages: home, emergency hub, 12 service pages, 15 city pages, 90 city x service pages (water damage, flooded basement, storm damage, hail roof repair, emergency roof repair and roof replacement in every city), insurance claims guide, first responder program, reviews, about, contact, 4 homeowner guides
+- 134 pages: home, emergency hub, 12 service pages, 15 city pages, 126 city x service pages (water damage, storm damage, emergency roof repair and roof replacement everywhere, plus flooded basement and hail roof repair in the St. Louis metro), insurance claims guide, first responder program, reviews, about, contact, 4 homeowner guides
 - Scrollytelling home page: a pinned house cross-section that plays out a 2 a.m. water loss as you scroll, plus a scroll-scrubbed horizontal hail-claim track
 - Schema on every page: RoofingContractor/LocalBusiness, Service, FAQPage, BreadcrumbList, Article
 - SEO and AI-search files:

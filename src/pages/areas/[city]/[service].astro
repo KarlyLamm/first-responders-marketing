@@ -1,9 +1,9 @@
 ---
 import ServicePage from '../../../layouts/ServicePage.astro';
-import { services, cityServiceSlugs } from '../../../data/services';
+import { services, hasCityPage } from '../../../data/services';
 import { cities } from '../../../data/cities';
 export function getStaticPaths() {
-  return cities.flatMap((city) => services.filter((s) => cityServiceSlugs.includes(s.slug)).map((service) => ({ params: { city: city.slug, service: service.slug }, props: { city, service } })));
+  return cities.flatMap((city) => services.filter((s) => hasCityPage(city, s.slug)).map((service) => ({ params: { city: city.slug, service: service.slug }, props: { city, service } })));
 }
 const { city, service } = Astro.props;
 ---
