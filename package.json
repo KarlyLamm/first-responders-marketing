@@ -1,0 +1,20 @@
+{
+  "name": "first-responders-site",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "indexnow": "node scripts/indexnow.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/barlow-condensed": "^5.3.0",
+    "@fontsource/public-sans": "^5.3.0",
+    "astro": "^5.18.2"
+  },
+  "type": "module"
+}

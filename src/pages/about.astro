@@ -1,0 +1,21 @@
+---
+import Page from '../layouts/Page.astro';
+import { site, yearsInBusiness } from '../data/site';
+---
+<Page title="About First Responders Roofing & Restoration | St. Louis Since 2016" description={`Locally owned St. Louis roofing and restoration company since ${site.foundedYear}. Owner ${site.owner}. 24/7 emergency response.`} h1="Locally owned. On call since 2016." crumbs={[{ name: 'About', href: '/about/' }]}>
+  <section class="section"><div class="wrap grid grid--side">
+    <div class="prose">
+      <p class="lede">First Responders Roofing &amp; Restoration is a locally owned St. Louis company that has been fixing roofs and restoring homes and businesses for {yearsInBusiness}+ years.</p>
+      <p>We do the two jobs most companies split: the roof and exterior, and the water, fire, sewage and mold damage inside. When a storm hits, that means one call, one crew and one claim.</p>
+      <p>We work out of {site.address.street} in St. Louis County and serve {site.serviceRegion}.</p>
+      <h2>Who you will talk to</h2>
+      <ul><li><b>{site.owner}</b>, owner</li><li><b>{site.manager}</b>, general manager</li></ul>
+      {site.credentials.length > 0 && (<><h2>Certifications</h2><ul>{site.credentials.map((c) => <li><b>{c.name}</b>: {c.detail}</li>)}</ul></>)}
+    </div>
+    <aside class="ab">
+      <p><b>{site.name}</b><br />{site.address.street}<br />{site.address.city}, {site.address.region} {site.address.postal}</p>
+      <p><a href={site.phoneHref}>{site.phone}</a><br />Open 24 hours, 7 days</p>
+    </aside>
+  </div></section>
+</Page>
+<style>.ab { background: var(--concrete); padding: 28px; border-top: 6px solid var(--hivis); }</style>

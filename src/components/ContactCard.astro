@@ -1,0 +1,39 @@
+---
+// Contact card: call or text only (no web form until a lead endpoint is set up).
+import { site } from '../data/site';
+interface Props { heading?: string; preset?: string }
+const { heading = 'Get a crew or a free inspection', preset = '' } = Astro.props;
+const body = encodeURIComponent(`Hi, I need help${preset ? ` with ${preset.toLowerCase()}` : ''}. My address is: `);
+---
+<div class="cc">
+  <p class="cc__h">{heading}</p>
+  <p class="cc__sub">A real person answers 24 hours a day, 7 days a week.</p>
+  <a class="cc__btn cc__btn--call" href={site.phoneHref} data-track="call-card">
+    <span class="cc__label">Call now</span>
+    <span class="cc__num">{site.phone}</span>
+  </a>
+  <a class="cc__btn cc__btn--text" href={`${site.smsHref}?&body=${body}`} data-track="text-card">
+    <span class="cc__label">Text us photos</span>
+    <span class="cc__num">{site.sms}</span>
+  </a>
+  <ul class="cc__list">
+    <li>On-site in about {site.responseHours} hours</li>
+    <li>Free roof and storm inspections</li>
+    <li>We work directly with your insurance</li>
+  </ul>
+</div>
+<style>
+  .cc { background: var(--paper); padding: clamp(22px, 3vw, 32px); border-top: 8px solid var(--signal); box-shadow: 0 30px 60px -30px rgba(19,35,58,.45); display: grid; gap: 12px; color: var(--ink); }
+  .cc__h { font-family: var(--display); font-weight: 800; font-size: var(--t-3); line-height: 1; color: var(--navy); margin: 0; }
+  .cc__sub { margin: 0 0 6px; color: var(--steel); }
+  .cc__btn { display: grid; gap: 2px; padding: 16px 20px; border-radius: var(--r-sm); text-decoration: none; transition: background-color .15s; }
+  .cc__btn--call { background: var(--signal); color: #fff; }
+  .cc__btn--call:hover { background: var(--signal-dark); color: #fff; }
+  .cc__btn--text { background: var(--navy); color: #fff; }
+  .cc__btn--text:hover { background: var(--navy-2); color: var(--hivis); }
+  .cc__label { font-weight: 700; font-size: .95rem; opacity: .9; }
+  .cc__num { font-family: var(--display); font-weight: 800; font-size: clamp(1.9rem, 4vw, 2.4rem); line-height: 1; }
+  .cc__list { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 8px; font-size: .95rem; }
+  .cc__list li { padding-left: 26px; position: relative; }
+  .cc__list li::before { content: ''; position: absolute; left: 0; top: .35em; width: 14px; height: 8px; border-left: 3px solid var(--signal); border-bottom: 3px solid var(--signal); transform: rotate(-45deg); }
+</style>

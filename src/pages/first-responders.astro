@@ -1,0 +1,23 @@
+---
+import Page from '../layouts/Page.astro';
+import { site } from '../data/site';
+---
+<Page title="First Responder Program | Giving Back to St. Louis Police, Fire & EMS" description={`${site.giveback} Learn how First Responders Roofing & Restoration supports St. Louis police, fire and EMS.`} h1="Built to back the people who show up for us" lede={site.giveback} crumbs={[{ name: 'First responders', href: '/first-responders/' }]}>
+  <section class="section"><div class="wrap grid grid--2">
+    <div class="prose">
+      <h2>Why the name</h2>
+      <p>When a pipe bursts at 2 a.m. or a storm opens up a roof, the first hour matters most. We built our company to respond the way first responders do: fast, prepared and calm.</p>
+      <p>We also know who really runs toward danger. That is why giving back to St. Louis law enforcement is part of every job we do, not a once-a-year donation.</p>
+      {site.responderOffer && (<><h2>For police, fire and EMS families</h2><p>{site.responderOffer}</p></>)}
+    </div>
+    <div class="fr-card">
+      <p class="fr-card__big">Every job gives back.</p>
+      <p>Are you with a St. Louis area department, FOP lodge or first responder nonprofit? We would like to hear from you.</p>
+      <a class="btn btn--call" href="/contact/">Get in touch</a>
+    </div>
+  </div></section>
+</Page>
+<style>
+  .fr-card { background: var(--hivis); padding: 36px; color: var(--navy); }
+  .fr-card__big { font-family: var(--display); font-weight: 800; font-size: var(--t-5); line-height: .9; }
+</style>

@@ -1,0 +1,27 @@
+---
+import { site } from '../data/site';
+import Phone from './Phone.astro';
+interface Props { heading?: string; text?: string }
+const { heading = 'Damage happening right now?', text = `Call and a crew is dispatched. We are on-site in about ${site.responseHours} hours, day or night.` } = Astro.props;
+---
+<section class="ctaband">
+  <div class="chevron-band" aria-hidden="true"></div>
+  <div class="wrap ctaband__in">
+    <div>
+      <h2>{heading}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="ctaband__actions">
+      <Phone variant="hivis" track="call-ctaband" label="Call now" />
+      <a class="btn btn--ghost" href="/contact/">Request an inspection</a>
+    </div>
+  </div>
+</section>
+<style>
+  .ctaband { background: var(--signal); color: #fff; }
+  .ctaband__in { display: grid; gap: 24px; padding-block: clamp(40px, 6vw, 72px); align-items: center; }
+  @media (min-width: 860px) { .ctaband__in { grid-template-columns: 1.4fr auto; } }
+  h2 { color: #fff; margin-bottom: .25em; }
+  p { color: #ffe9e7; margin: 0; font-size: var(--t-1); }
+  .ctaband__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+</style>

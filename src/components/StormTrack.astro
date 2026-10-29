@@ -1,0 +1,77 @@
+---
+// Horizontal scroll-scrubbed track: the hail claim, step by step.
+const panels = [
+  { n: '1', h: 'The storm passes.', p: 'St. Louis gets several damaging hail and wind storms a year. Most roof damage cannot be seen from the ground, so most homeowners never know it is there until the roof leaks.' },
+  { n: '2', h: 'Free inspection.', p: 'We go on the roof, check gutters, vents, siding and windows, and photograph every hit. You get the report either way.' },
+  { n: '3', h: 'We meet your adjuster.', p: 'Same day, same roof. We point out every damaged area so the approved scope matches what is really there.' },
+  { n: '4', h: 'New roof.', p: 'Tear-off, decking check, underlayment, flashing, ventilation and shingles. Magnetic nail sweep before we leave. You pay your deductible.' },
+];
+---
+<section class="storm" aria-labelledby="storm-h">
+  <div class="storm__pin">
+    <div class="wrap storm__head">
+      <h2 id="storm-h">After the hail</h2>
+      <p>The storm side of the business. Scroll to move through a claim.</p>
+    </div>
+    <div class="storm__track">
+      {panels.map((p) => (
+        <article class="panel">
+          <span class="panel__n" aria-hidden="true">{p.n}</span>
+          <h3>{p.h}</h3>
+          <p>{p.p}</p>
+        </article>
+      ))}
+      <article class="panel panel--cta">
+        <h3>Had a storm in the last year?</h3>
+        <p>Book a free hail inspection before your policy's reporting window closes.</p>
+        <a class="btn btn--call" href="/services/hail-damage-roof-repair/">See how hail claims work</a>
+      </article>
+    </div>
+    <div class="hail" aria-hidden="true">{Array.from({ length: 28 }).map((_, i) => <i style={`--x:${(i * 37) % 100}%;--d:${(i % 7) * 0.4}s;--s:${0.6 + (i % 4) * 0.25}`}></i>)}</div>
+  </div>
+</section>
+
+<script>
+  const sec = document.querySelector<HTMLElement>('.storm');
+  const track = document.querySelector<HTMLElement>('.storm__track');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (sec && track && !reduce) {
+    sec.classList.add('is-scrubbed');
+    let ticking = false;
+    const size = () => {
+      const dist = track.scrollWidth - window.innerWidth + 48;
+      sec.style.height = `${window.innerHeight + Math.max(dist, 0)}px`;
+      sec.dataset.dist = String(Math.max(dist, 0));
+    };
+    const update = () => {
+      const r = sec.getBoundingClientRect();
+      const dist = Number(sec.dataset.dist || 0);
+      const p = Math.min(Math.max(-r.top / (r.height - window.innerHeight || 1), 0), 1);
+      track.style.transform = `translate3d(${-p * dist}px,0,0)`;
+      sec.style.setProperty('--p', p.toFixed(3));
+      ticking = false;
+    };
+    size(); update();
+    addEventListener('resize', () => { size(); update(); });
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  }
+</script>
+
+<style>
+  .storm { position: relative; background: #0e2148; color: #c4d0de; }
+  .storm__pin { overflow: hidden; padding-block: clamp(56px, 8vw, 100px); position: relative; }
+  .storm.is-scrubbed .storm__pin { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-block: 0; }
+  .storm__head h2 { color: #fff; font-size: var(--t-6); line-height: .85; margin-bottom: .1em; }
+  .storm__head p { color: #9fb0c4; }
+  .storm__track { display: flex; gap: 24px; padding: 32px var(--gutter) 0; will-change: transform; }
+  .storm:not(.is-scrubbed) .storm__track { overflow-x: auto; scroll-snap-type: x mandatory; }
+  .panel { flex: 0 0 min(82vw, 440px); scroll-snap-align: start; background: var(--navy-2); padding: 32px; border-top: 6px solid var(--hivis); position: relative; z-index: 1; }
+  .panel__n { font-family: var(--display); font-weight: 800; font-size: 7rem; line-height: .8; color: transparent; -webkit-text-stroke: 2px var(--hivis); display: block; margin-bottom: 20px; }
+  .panel h3 { color: #fff; font-family: var(--display); font-weight: 800; font-size: var(--t-3); }
+  .panel--cta { background: var(--hivis); color: var(--navy); border-top-color: var(--signal); display: flex; flex-direction: column; justify-content: flex-end; }
+  .panel--cta h3 { color: var(--navy); }
+  .hail { position: absolute; inset: 0; pointer-events: none; }
+  .hail i { position: absolute; left: var(--x); top: -10px; width: calc(8px * var(--s)); height: calc(8px * var(--s)); border-radius: 50%; background: #dce8f5; opacity: .5; animation: fall 2.8s linear infinite; animation-delay: var(--d); }
+  @keyframes fall { to { transform: translateY(105vh); } }
+  @media (prefers-reduced-motion: reduce) { .hail { display: none; } }
+</style>

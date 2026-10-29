@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { cities } from '../../data/cities';
+import { site } from '../../data/site';
+const counties = [...new Set(cities.map((c) => c.county))];
+---
+<Base title="Service Areas | St. Louis, St. Charles & Lake of the Ozarks | First Responders" description={`24/7 roofing and restoration across ${site.serviceRegion}. Find your city. Call ${site.phone}.`} crumbs={[{ name: 'Areas', href: '/areas/' }]}>
+  <section class="section"><div class="wrap">
+    <h1>Service areas</h1>
+    <p class="lede">We dispatch 24/7 from {site.address.street} in St. Louis County. Do not see your town? Call, we probably cover it.</p>
+    {counties.map((co) => (
+      <div class="co">
+        <h2>{co}</h2>
+        <ul>{cities.filter((c) => c.county === co).map((c) => <li><a href={`/areas/${c.slug}/`}>{c.name}</a></li>)}</ul>
+      </div>
+    ))}
+  </div></section>
+  <CtaBand />
+</Base>
+<style>
+  .co { margin-top: 48px; }
+  .co h2 { font-size: var(--t-2); color: var(--steel); font-family: var(--body); font-weight: 700; }
+  .co ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 4px 0; }
+  .co li { font-family: var(--display); font-weight: 800; font-size: var(--t-4); line-height: 1.1; }
+  .co li:not(:last-child)::after { content: '/'; color: var(--hivis); margin: 0 .3em; }
+  .co a { color: var(--navy); text-decoration: none; }
+  .co a:hover { color: var(--signal); }
+</style>

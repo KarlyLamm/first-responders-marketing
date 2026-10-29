@@ -1,0 +1,15 @@
+---
+import Page from '../../layouts/Page.astro';
+const posts = Object.values(import.meta.glob('./*.md', { eager: true })) as any[];
+---
+<Page title="Homeowner Guides: Water Damage, Storms & Insurance | First Responders" description="Plain-English guides for St. Louis homeowners on water damage, hail and storm damage, and insurance claims." h1="Homeowner guides" lede="Straight answers to what people ask us most." crumbs={[{ name: 'Guides', href: '/resources/' }]}>
+  <section class="section"><div class="wrap">
+    <ul class="posts">{posts.map((p) => <li><a href={p.url.replace(/\/?$/, '/')}><h2>{p.frontmatter.title}</h2><p>{p.frontmatter.answer}</p></a></li>)}</ul>
+  </div></section>
+</Page>
+<style>
+  .posts { list-style: none; padding: 0; margin: 0; }
+  .posts a { display: block; padding: 28px 0; border-bottom: 2px solid var(--concrete); text-decoration: none; color: var(--ink); }
+  .posts h2 { font-size: var(--t-3); }
+  .posts a:hover h2 { color: var(--signal); }
+</style>

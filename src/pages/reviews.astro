@@ -1,0 +1,18 @@
+---
+import Page from '../layouts/Page.astro';
+import ReviewStrip from '../components/ReviewStrip.astro';
+import { site } from '../data/site';
+const profiles = [['Google', site.social.google], ['BBB', site.social.bbb], ['Angi', site.social.angi], ['Yelp', site.social.yelp]].filter(([, u]) => u) as [string, string][];
+---
+<Page title="Reviews | First Responders Roofing & Restoration St. Louis" description="What St. Louis homeowners say about First Responders Roofing & Restoration. Read reviews and leave one." h1="Reviews" lede="Real reviews, quoted as written, with links to where they were posted." crumbs={[{ name: 'Reviews', href: '/reviews/' }]}>
+  <section class="section section--concrete"><div class="wrap"><ReviewStrip limit={20} /></div></section>
+  <section class="section"><div class="wrap">
+    <h2>Worked with us?</h2>
+    <p>A review that mentions what we did and your city helps your neighbors find us.</p>
+    <p class="rv-actions">
+      {site.googleReviewUrl && <a class="btn btn--call" href={site.googleReviewUrl} target="_blank" rel="noopener">Review us on Google</a>}
+      {profiles.map(([n, u]) => <a class="btn btn--ghost" href={u} target="_blank" rel="noopener">{n}</a>)}
+    </p>
+  </div></section>
+</Page>
+<style>.rv-actions { display: flex; flex-wrap: wrap; gap: 12px; color: var(--navy); }</style>

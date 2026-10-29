@@ -1,0 +1,19 @@
+---
+import Page from '../layouts/Page.astro';
+import ContactCard from '../components/ContactCard.astro';
+import { site } from '../data/site';
+---
+<Page title="Contact First Responders Roofing & Restoration | (314) 644-8800" description={`Call ${site.phone} 24/7 or request a free inspection. ${site.address.street}, St. Louis, MO ${site.address.postal}.`} h1="Talk to a person, any hour" crumbs={[{ name: 'Contact', href: '/contact/' }]} cta={false}>
+  <section class="section"><div class="wrap grid grid--2">
+    <div>
+      <p class="big"><a href={site.phoneHref} data-track="call-contact">{site.phone}</a></p>
+      <p>Call or text 24/7. For emergencies, calling is fastest.</p>
+      <p><b>Text photos:</b> <a href={site.smsHref} data-track="text-contact">{site.sms}</a></p>
+      {site.email && <p><b>Email:</b> <a href={`mailto:${site.email}`}>{site.email}</a></p>}
+      <address>{site.address.street}<br />{site.address.city}, {site.address.region} {site.address.postal}</address>
+      <iframe title="Map to our shop" loading="lazy" src={`https://www.google.com/maps?q=${encodeURIComponent(`${site.name}, ${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postal}`)}&output=embed`} width="100%" height="300" style="border:0;margin-top:24px"></iframe>
+    </div>
+    <ContactCard />
+  </div></section>
+</Page>
+<style>.big { font-family: var(--display); font-weight: 800; font-size: var(--t-5); line-height: 1; margin-bottom: .2em; } .big a { color: var(--signal); text-decoration: none; } address { font-style: normal; }</style>

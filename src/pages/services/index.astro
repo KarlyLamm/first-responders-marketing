@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { services } from '../../data/services';
+const groups = [['restoration', 'Restoration'], ['roofing', 'Roofing and exteriors']] as const;
+---
+<Base title="Roofing & Restoration Services St. Louis | First Responders" description="Water, fire, sewage and mold restoration plus storm damage, hail and emergency roofing in St. Louis and St. Charles. 24/7. Call (314) 644-8800." crumbs={[{ name: 'Services', href: '/services/' }]}>
+  <section class="section"><div class="wrap">
+    <h1>Services</h1>
+    <p class="lede">One company for the roof and everything under it. Emergency services are available 24/7.</p>
+    {groups.map(([g, label]) => (
+      <>
+        <h2 class="g">{label}</h2>
+        <div class="cards">
+          {services.filter((s) => s.group === g).map((s) => (
+            <a class="card" href={`/services/${s.slug}/`}>
+              <h3>{s.name}</h3>
+              <p>{s.answer.split('. ')[0]}.</p>
+              {s.emergency && <span class="tag">24/7</span>}
+            </a>
+          ))}
+        </div>
+      </>
+    ))}
+  </div></section>
+  <CtaBand />
+</Base>
+<style>
+  .g { margin-top: 56px; font-size: var(--t-3); }
+  .cards { display: grid; gap: 2px; background: var(--concrete); border: 2px solid var(--concrete); }
+  @media (min-width: 760px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .cards { grid-template-columns: repeat(3, 1fr); } }
+  .card { background: #fff; padding: 28px; text-decoration: none; color: var(--ink); position: relative; transition: background .2s; }
+  .card:hover { background: var(--navy); color: #c4d0de; }
+  .card:hover h3 { color: var(--hivis); }
+  .card p { font-size: .95rem; margin: 0; }
+  .tag { position: absolute; top: 20px; right: 20px; background: var(--signal); color: #fff; font-size: .75rem; font-weight: 700; padding: 3px 8px; border-radius: 3px; }
+</style>

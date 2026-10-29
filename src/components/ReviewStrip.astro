@@ -1,0 +1,22 @@
+---
+import { reviews } from '../data/reviews';
+interface Props { limit?: number }
+const { limit = 3 } = Astro.props;
+---
+<div class="reviews">
+  {reviews.slice(0, limit).map((r) => (
+    <figure class="rv">
+      <blockquote><p>{r.quote}</p></blockquote>
+      <figcaption>{r.author}{r.service && `, ${r.service}`} &middot; <a href={r.url} rel="nofollow noopener" target="_blank">{r.source}{r.date && `, ${r.date}`}</a></figcaption>
+    </figure>
+  ))}
+</div>
+<style>
+  .reviews { display: grid; gap: 20px; }
+  @media (min-width: 860px) { .reviews { grid-template-columns: 1.5fr 1fr 1fr; } }
+  .rv { margin: 0; padding: 28px; background: var(--paper); border-left: 6px solid var(--hivis); }
+  .rv blockquote { margin: 0; }
+  .rv p { font-size: var(--t-1); line-height: 1.45; color: var(--ink); }
+  .rv:first-child p { font-family: var(--display); font-weight: 600; font-size: var(--t-2); line-height: 1.15; }
+  figcaption { font-size: .9rem; color: var(--steel); }
+</style>

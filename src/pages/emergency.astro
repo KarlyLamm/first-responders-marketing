@@ -1,0 +1,36 @@
+---
+import Page from '../layouts/Page.astro';
+import ContactCard from '../components/ContactCard.astro';
+import Phone from '../components/Phone.astro';
+import { site } from '../data/site';
+const now = [
+  { h: 'Water or burst pipe', items: ['Shut off the main water valve. It is usually where the line enters the house, often in the basement near the front wall.', 'Turn off power to wet areas at the breaker if you can reach the panel without standing in water.', 'Move electronics, rugs and valuables off wet floors.', 'Take photos and video before anything is moved.'] , href: '/services/water-damage-restoration/' },
+  { h: 'Roof open or leaking', items: ['Put buckets under drips and poke a small hole in a bulging ceiling stain so water drains in one spot.', 'Move furniture and belongings out of the room.', 'Do not go on the roof in wind, rain or the dark.', 'Photograph the ceiling and anything visible outside.'], href: '/services/emergency-roof-repair/' },
+  { h: 'Sewage backup', items: ['Stop using every sink, toilet and appliance that drains.', 'Keep children and pets away from the area.', 'Do not try to clean it up without protective gear.', 'Turn off HVAC if it pulls air from that space.'], href: '/services/sewage-cleanup/' },
+  { h: 'After a fire', items: ['Do not re-enter until the fire department says it is safe.', 'Do not wipe soot or turn on the HVAC.', 'Call your insurer and us. We board up and tarp so weather and intruders stay out.'], href: '/services/fire-smoke-damage-restoration/' },
+];
+---
+<Page title="24/7 Emergency Water, Storm & Roof Service St. Louis | First Responders" description={`Emergency water damage, roof tarping, sewage and fire response in St. Louis, 24/7. What to do right now, and a crew on-site in about ${site.responseHours} hours. ${site.phone}.`} h1="Emergency? Call first, then do this." lede={`We answer 24/7 and are on-site in about ${site.responseHours} hours across St. Louis and St. Charles counties.`} crumbs={[{ name: 'Emergency', href: '/emergency/' }]}>
+  <section class="section"><div class="wrap grid grid--side">
+    <div>
+      <div class="bigcall"><Phone track="call-emergency" label="Call now" /></div>
+      {now.map((n) => (
+        <section class="todo">
+          <h2>{n.h}</h2>
+          <ol>{n.items.map((i) => <li>{i}</li>)}</ol>
+          <a href={n.href}>More about {n.h.toLowerCase()}</a>
+        </section>
+      ))}
+    </div>
+    <ContactCard heading="Send a crew now" />
+  </div></section>
+</Page>
+<style>
+  .bigcall { margin-bottom: 40px; }
+  .bigcall :global(.btn) { font-size: clamp(1.6rem, 4vw, 2.4rem); }
+  .todo { padding: 28px 0; border-top: 4px solid var(--navy); }
+  .todo h2 { font-size: var(--t-3); }
+  .todo ol { padding-left: 1.2em; }
+  .todo li { margin-bottom: .5em; max-width: 64ch; }
+  .todo a { font-weight: 700; }
+</style>

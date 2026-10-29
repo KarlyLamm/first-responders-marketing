@@ -1,0 +1,71 @@
+---
+import Base from '../../../layouts/Base.astro';
+import ContactCard from '../../../components/ContactCard.astro';
+import ReviewStrip from '../../../components/ReviewStrip.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import Phone from '../../../components/Phone.astro';
+import { cities, type City } from '../../../data/cities';
+import { services, cityServiceSlugs } from '../../../data/services';
+import { site } from '../../../data/site';
+export function getStaticPaths() { return cities.map((city) => ({ params: { city: city.slug }, props: { city } })); }
+const { city } = Astro.props as { city: City };
+const url = new URL(Astro.url.pathname, site.url).href;
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'WebPage', url, name: `Roofing and restoration in ${city.name}, MO`,
+  about: { '@id': `${site.url}/#business` },
+  mentions: { '@type': 'City', name: `${city.name}, MO`, containedInPlace: { '@type': 'AdministrativeArea', name: `${city.county}, Missouri` } },
+}];
+const near = cities.filter((c) => c.county === city.county && c.slug !== city.slug);
+---
+<Base title={`${city.name}, MO Roofing & Water Damage Restoration | 24/7 | First Responders`} description={`24/7 water damage restoration, storm damage and roofing in ${city.name}, MO. On-site in about ${site.responseHours} hours. Insurance claim help. Call ${site.phone}.`} schema={schema} crumbs={[{ name: 'Areas', href: '/areas/' }, { name: city.name, href: `/areas/${city.slug}/` }]}>
+  <section class="chero">
+    <div class="wrap chero__in">
+      <div>
+        <h1><span class="chero__city">{city.name}</span> roofing and restoration, 24/7</h1>
+        <p class="chero__p">Water damage, storm damage, roof leaks, fire and sewage cleanup in {city.name} and across {city.county}. A crew on-site in about {site.responseHours} hours, day or night.</p>
+        <p class="chero__p">{city.local}</p>
+        <Phone variant="hivis" track={`call-city-${city.slug}`} label="Call 24/7" />
+      </div>
+      <ContactCard heading={`Get help in ${city.name}`} />
+    </div>
+  </section>
+  <div class="chevron-band" aria-hidden="true"></div>
+  <section class="section"><div class="wrap">
+    <h2>Services in {city.name}</h2>
+    <ul class="clist">
+      {services.map((s) => (
+        <li><a href={cityServiceSlugs.includes(s.slug) ? `/areas/${city.slug}/${s.slug}/` : `/services/${s.slug}/`}><b>{s.name}</b><span>{s.answer.split('. ')[0]}.</span></a></li>
+      ))}
+    </ul>
+    <div class="facts">
+      <div><h3>ZIP codes we serve</h3><p>{city.zips.join(', ')}</p></div>
+      <div><h3>Neighborhoods and nearby</h3><p>{city.nearby.join(', ')}</p></div>
+      <div><h3>Response</h3><p>Dispatched from {site.address.street}, St. Louis County. 24 hours a day, 7 days a week.</p></div>
+    </div>
+  </div></section>
+  <section class="section section--concrete"><div class="wrap"><h2>What customers say</h2><ReviewStrip /></div></section>
+  {near.length > 0 && (
+    <section class="section"><div class="wrap"><h2>Also serving near {city.name}</h2>
+      <p class="near">{near.map((c, i) => (<><a href={`/areas/${c.slug}/`}>{c.name}</a>{i < near.length - 1 && ', '}</>))}</p>
+    </div></section>
+  )}
+  <CtaBand heading={`Damage at your ${city.name} property?`} />
+</Base>
+<style>
+  .chero { background: var(--navy); color: #c4d0de; }
+  .chero__in { display: grid; gap: 40px; padding-block: clamp(32px, 6vw, 80px); }
+  @media (min-width: 1000px) { .chero__in { grid-template-columns: 1.4fr 1fr; gap: 64px; } }
+  .chero h1 { color: #fff; font-size: var(--t-4); }
+  .chero__city { display: block; font-size: var(--t-6); color: var(--hivis); line-height: .85; margin-bottom: .1em; }
+  .chero__p { font-size: var(--t-1); line-height: 1.5; }
+  .clist { list-style: none; padding: 0; margin: 24px 0 48px; display: grid; gap: 0; }
+  @media (min-width: 860px) { .clist { grid-template-columns: 1fr 1fr; column-gap: 48px; } }
+  .clist a { display: grid; gap: 4px; padding: 18px 0; border-bottom: 2px solid var(--concrete); text-decoration: none; color: var(--ink); }
+  .clist b { font-family: var(--display); font-size: var(--t-2); color: var(--navy); }
+  .clist a:hover b { color: var(--signal); }
+  .clist span { font-size: .95rem; color: var(--steel); }
+  .facts { display: grid; gap: 24px; }
+  @media (min-width: 860px) { .facts { grid-template-columns: repeat(3, 1fr); } }
+  .facts > div { border-top: 6px solid var(--hivis); padding-top: 14px; }
+  .near a { font-weight: 700; }
+</style>

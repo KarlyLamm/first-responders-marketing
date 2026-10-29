@@ -1,0 +1,15 @@
+/* TEAM */
+Owner: Jeffrey Lamm
+General manager: Marissa Goldsmith
+Company: First Responders Roofing & Restoration
+Location: 11785 Lackland Rd, St. Louis, MO 63146
+Phone: (314) 644-8800 (24/7)
+
+/* THANKS */
+St. Louis police, fire and EMS. Every job gives back.
+
+/* SITE */
+Standards: HTML5, CSS3, schema.org JSON-LD
+Built with: Astro
+Fonts: Barlow Condensed, Public Sans
+Hosting: Vercel

@@ -1,0 +1,28 @@
+---
+import Base from './Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../data/site';
+const { frontmatter, url } = Astro.props as any;
+const fm = frontmatter;
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'Article', headline: fm.title, description: fm.description,
+  datePublished: fm.date, dateModified: fm.updated || fm.date,
+  author: { '@type': 'Organization', name: site.name, url: site.url }, publisher: { '@id': `${site.url}/#business` },
+  mainEntityOfPage: new URL(Astro.url.pathname, site.url).href,
+}];
+---
+<Base title={`${fm.title} | First Responders`} description={fm.description} schema={schema} crumbs={[{ name: 'Guides', href: '/resources/' }, { name: fm.title, href: Astro.url.pathname }]}>
+  <article class="art">
+    <header class="art__h"><div class="wrap"><h1>{fm.title}</h1><p class="lede">{fm.answer}</p><p class="art__meta">Updated {new Date(fm.updated || fm.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} by the {site.name} team</p></div></header>
+    <div class="chevron-band" aria-hidden="true"></div>
+    <div class="wrap prose art__body"><slot /></div>
+  </article>
+  <CtaBand />
+</Base>
+<style>
+  .art__h { background: var(--navy); padding-block: clamp(40px, 7vw, 90px); }
+  .art__h h1 { color: #fff; font-size: var(--t-4); max-width: 22ch; }
+  .art__h .lede { color: #dfe6ef; }
+  .art__meta { color: #8fa1b6; font-size: .9rem; }
+  .art__body { max-width: 760px; padding-block: 56px; font-size: 1.1rem; }
+</style>

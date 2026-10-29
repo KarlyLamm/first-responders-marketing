@@ -1,0 +1,36 @@
+---
+import Page from '../layouts/Page.astro';
+import FaqList from '../components/FaqList.astro';
+const faqs = [
+  { q: 'Do I call my insurance company or a contractor first?', a: 'If damage is ongoing, call us first so the damage is stopped, then report the claim. Insurers expect you to prevent further damage, and emergency work is normally part of the claim.' },
+  { q: 'Can I choose my own contractor?', a: 'Yes. You can choose who repairs your home. Your insurer may recommend vendors, but you are not required to use them.' },
+  { q: 'What does my deductible mean?', a: 'It is the part of the covered loss you pay. The insurer pays the approved amount above it. Some policies have a separate, often percentage-based, deductible for wind and hail.' },
+  { q: 'What if the adjuster misses damage?', a: 'We document what we find and can request a re-inspection or submit a supplement with photos and measurements for items that were missed or found during work.' },
+  { q: 'How long do I have to file a claim?', a: 'It depends on the policy. Many require prompt notice. Check your policy and report damage as soon as you find it.' },
+];
+const schema = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }];
+---
+<Page title="Insurance Claim Help for Roof & Water Damage | St. Louis | First Responders" description="How roof, hail and water damage insurance claims work in Missouri, step by step. We document damage, meet your adjuster and handle the paperwork." h1="Insurance claims, explained" lede="Most of our jobs go through insurance. Here is how a claim works and what we do at each step, so you get paid for the damage you actually have." crumbs={[{ name: 'Insurance claims', href: '/insurance-claims/' }]} schema={schema}>
+  <section class="section"><div class="wrap prose" style="max-width:860px">
+    <h2>The claim, step by step</h2>
+    <ol>
+      <li><b>Stop the damage.</b> We tarp the roof or extract water right away. Keep receipts for anything you buy.</li>
+      <li><b>Document.</b> We photograph and measure everything, and log moisture readings for water losses.</li>
+      <li><b>Report the claim.</b> You call your insurer or file online. We give you what you need to describe the loss.</li>
+      <li><b>Adjuster inspection.</b> We meet the adjuster on-site and point out every damaged area.</li>
+      <li><b>Estimate and approval.</b> The insurer approves a scope. We review it against our own estimate, prepared in the same line-item format insurers use, and flag anything missing.</li>
+      <li><b>Work and supplements.</b> We do the work. Hidden damage found along the way, like rotted decking, is documented and submitted.</li>
+      <li><b>Final payment.</b> You pay your deductible. Mortgage companies sometimes co-sign checks, and we walk you through that too.</li>
+    </ol>
+    <h2>Common claim types we handle</h2>
+    <ul>
+      <li><a href="/services/hail-damage-roof-repair/">Hail damage to roofs, gutters and siding</a></li>
+      <li><a href="/services/storm-damage-repair/">Wind and tornado damage</a></li>
+      <li><a href="/services/water-damage-restoration/">Burst pipes and appliance leaks</a></li>
+      <li><a href="/services/fire-smoke-damage-restoration/">Fire and smoke damage</a></li>
+      <li><a href="/services/sewage-cleanup/">Sewer backups (with backup coverage)</a></li>
+    </ul>
+    <p>This page is general information, not legal advice. Your policy decides what is covered.</p>
+    <FaqList faqs={faqs} heading="Insurance questions" />
+  </div></section>
+</Page>

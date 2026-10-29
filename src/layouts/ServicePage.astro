@@ -1,0 +1,129 @@
+---
+import Base from './Base.astro';
+import ContactCard from '../components/ContactCard.astro';
+import Steps from '../components/Steps.astro';
+import FaqList from '../components/FaqList.astro';
+import CtaBand from '../components/CtaBand.astro';
+import ReviewStrip from '../components/ReviewStrip.astro';
+import Phone from '../components/Phone.astro';
+import { site } from '../data/site';
+import { serviceBySlug, cityServiceSlugs, type Service, type Faq } from '../data/services';
+import { cities, type City } from '../data/cities';
+
+interface Props { service: Service; city?: City }
+const { service: s, city } = Astro.props;
+const place = city ? city.name : 'St. Louis';
+const where = city ? `${city.name}, MO` : 'St. Louis';
+
+const h1 = city ? `${s.name.charAt(0).toUpperCase() + s.name.slice(1)} in ${city.name}, MO` : s.h1;
+const title = city ? `${s.name.replace(/^./, (c) => c.toUpperCase())} ${city.name}, MO | 24/7 | First Responders` : s.title;
+const description = city
+  ? `${s.name.replace(/^./, (c) => c.toUpperCase())} in ${city.name}, MO, 24/7. On-site in about ${site.responseHours} hours, insurance claim help, one team from start to rebuild. Call ${site.phone}.`
+  : s.description;
+const answer = city
+  ? s.answer.replace(/across St\. Louis and St\. Charles( counties)?|across the St\. Louis area|across St\. Louis/, `in ${city.name} and across ${city.county}`)
+  : s.answer;
+const faqs: Faq[] = city
+  ? [{ q: `How fast can you get to ${city.name}?`, a: `We dispatch 24/7 from our shop at ${site.address.street} in St. Louis County and are typically on-site in about ${site.responseHours} hours, often sooner.` }, ...s.faqs]
+  : s.faqs;
+const url = new URL(Astro.url.pathname, site.url).href;
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'Service', '@id': `${url}#service`,
+    name: city ? `${s.name} in ${city.name}, MO` : s.name,
+    serviceType: s.name, description: answer, url,
+    provider: { '@id': `${site.url}/#business` },
+    areaServed: city ? { '@type': 'City', name: `${city.name}, MO`, containedInPlace: { '@type': 'AdministrativeArea', name: `${city.county}, Missouri` } } : cities.map((c) => ({ '@type': 'City', name: `${c.name}, MO` })),
+    hoursAvailable: s.emergency ? { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '00:00', closes: '23:59' } : undefined,
+  },
+  { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+];
+const crumbs = city
+  ? [{ name: 'Areas', href: '/areas/' }, { name: city.name, href: `/areas/${city.slug}/` }, { name: s.name, href: Astro.url.pathname }]
+  : [{ name: 'Services', href: '/services/' }, { name: s.name, href: `/services/${s.slug}/` }];
+const hasCityPages = cityServiceSlugs.includes(s.slug);
+const preset = s.slug.includes('water') || s.slug.includes('flood') ? 'Water or flooding' : s.slug.includes('sewage') ? 'Sewage' : s.slug.includes('fire') ? 'Fire or smoke' : s.slug.includes('mold') ? 'Mold' : s.slug.includes('roof-repair') && !s.slug.includes('hail') ? 'Roof leak' : s.group === 'roofing' ? 'Storm or hail' : '';
+---
+<Base title={title} description={description} schema={schema} crumbs={crumbs}>
+  <section class="shero">
+    <div class="wrap shero__in">
+      <div>
+        {s.emergency && <p class="shero__flag"><span class="dot"></span> Available now, 24/7 in {place}</p>}
+        <h1>{h1}</h1>
+        <p class="shero__answer">{answer}</p>
+        <div class="shero__actions"><Phone variant="hivis" track={`call-svc-${s.slug}`} label="Call 24/7" /></div>
+        {city && <p class="shero__local">{city.local}</p>}
+      </div>
+      <ContactCard preset={preset} heading={s.emergency ? 'Send a crew' : 'Book a free inspection'} />
+    </div>
+  </section>
+  <div class="chevron-band" aria-hidden="true"></div>
+
+  <section class="section">
+    <div class="wrap grid grid--side">
+      <div class="prose">
+        <h2>Signs you need {s.name.toLowerCase()}</h2>
+        <ul class="signs">{s.signs.map((x) => <li>{x}</li>)}</ul>
+        <Steps steps={s.steps} heading={`How we handle ${s.name.toLowerCase()}${city ? ` in ${city.name}` : ''}`} />
+      </div>
+      <aside class="ins">
+        <h2>Insurance</h2>
+        <p>{s.insurance}</p>
+        <a href="/insurance-claims/">How we help with claims</a>
+        {city && (
+          <div class="ins__local">
+            <h3>Serving {city.name}</h3>
+            <p>ZIP codes: {city.zips.join(', ')}</p>
+            <p>Nearby: {city.nearby.join(', ')}</p>
+          </div>
+        )}
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--concrete"><div class="wrap"><h2>From our customers</h2><ReviewStrip /></div></section>
+
+  <section class="section"><div class="wrap" style="max-width:860px"><FaqList faqs={faqs} heading={`${s.name} questions`} /></div></section>
+
+  <section class="section section--concrete">
+    <div class="wrap grid grid--2">
+      <div>
+        <h2>Related services</h2>
+        <ul class="links">{s.related.map((r) => serviceBySlug[r]).filter(Boolean).map((r) => <li><a href={city && cityServiceSlugs.includes(r.slug) ? `/areas/${city.slug}/${r.slug}/` : `/services/${r.slug}/`}>{r.name}{city && cityServiceSlugs.includes(r.slug) ? ` in ${city.name}` : ''}</a></li>)}</ul>
+      </div>
+      <div>
+        <h2>{city ? 'Nearby areas' : 'Where we offer it'}</h2>
+        <ul class="links links--cities">
+          {(city ? (cities.filter((c) => c.slug !== city.slug && c.county === city.county).length ? cities.filter((c) => c.slug !== city.slug && c.county === city.county) : cities.filter((c) => c.slug !== city.slug)) : cities).map((c) => (
+            <li><a href={hasCityPages ? `/areas/${c.slug}/${s.slug}/` : `/areas/${c.slug}/`}>{c.name}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+  <CtaBand heading={s.emergency ? `${s.name.replace(/^./, (c) => c.toUpperCase())} emergency in ${where}?` : `Get a free inspection in ${where}`} />
+</Base>
+
+<style>
+  .shero { background: var(--navy); color: #c4d0de; }
+  .shero__in { display: grid; gap: 40px; padding-block: clamp(32px, 6vw, 80px); align-items: start; }
+  @media (min-width: 1000px) { .shero__in { grid-template-columns: 1.4fr 1fr; gap: 64px; } }
+  .shero h1 { color: #fff; font-size: var(--t-5); }
+  .shero__flag { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; color: var(--hivis); margin-bottom: 14px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #3ddc84; }
+  .shero__answer { font-size: var(--t-1); line-height: 1.55; color: #dfe6ef; }
+  .shero__actions { margin: 24px 0; }
+  .shero__local { border-left: 4px solid var(--hivis); padding-left: 16px; color: #b9c6d6; }
+  .signs { list-style: none; padding: 0; margin: 0 0 56px; display: grid; gap: 10px; }
+  .signs li { padding: 14px 16px 14px 48px; background: var(--concrete); position: relative; font-weight: 600; }
+  .signs li::before { content: '!'; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 22px; height: 22px; display: grid; place-items: center; background: var(--hivis); color: var(--navy); font-weight: 800; border-radius: 3px; }
+  .ins { position: sticky; top: 100px; background: var(--navy); color: #c4d0de; padding: 28px; border-top: 6px solid var(--hivis); }
+  .ins h2 { color: #fff; font-size: var(--t-3); }
+  .ins a { color: var(--hivis); font-weight: 700; }
+  .ins__local { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--navy-3); font-size: .95rem; }
+  .ins__local h3 { color: #fff; }
+  .links { list-style: none; padding: 0; margin: 0; }
+  .links a { display: block; padding: 10px 0; border-bottom: 1px solid #cdd3da; font-weight: 700; text-decoration: none; color: var(--navy); }
+  .links a:hover { color: var(--signal); }
+  .links--cities { columns: 2; }
+</style>

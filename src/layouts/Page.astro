@@ -1,0 +1,17 @@
+---
+import Base from './Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+interface Props { title: string; description: string; h1: string; lede?: string; crumbs: { name: string; href: string }[]; schema?: object[]; cta?: boolean }
+const { title, description, h1, lede, crumbs, schema = [], cta = true } = Astro.props;
+---
+<Base title={title} description={description} crumbs={crumbs} schema={schema}>
+  <header class="phead"><div class="wrap"><h1>{h1}</h1>{lede && <p class="lede">{lede}</p>}</div></header>
+  <div class="chevron-band" aria-hidden="true"></div>
+  <slot />
+  {cta && <CtaBand />}
+</Base>
+<style>
+  .phead { background: var(--navy); padding-block: clamp(40px, 7vw, 96px); }
+  .phead h1 { color: #fff; max-width: 18ch; }
+  .phead .lede { color: #b9c6d6; }
+</style>

@@ -1,0 +1,24 @@
+---
+import type { Faq } from '../data/services';
+interface Props { faqs: Faq[]; heading?: string }
+const { faqs, heading = 'Common questions' } = Astro.props;
+---
+<section class="faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">{heading}</h2>
+  {faqs.map((f) => (
+    <details>
+      <summary><h3>{f.q}</h3></summary>
+      <p>{f.a}</p>
+    </details>
+  ))}
+</section>
+<style>
+  details { border-top: 2px solid var(--navy); padding: 6px 0; }
+  details:last-child { border-bottom: 2px solid var(--navy); }
+  summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; font-family: var(--display); font-size: 2rem; line-height: .8; color: var(--signal); transition: transform .2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  summary h3 { margin: 0; font-size: var(--t-1); font-family: var(--body); font-weight: 700; line-height: 1.35; }
+  details p { padding-bottom: 12px; }
+</style>

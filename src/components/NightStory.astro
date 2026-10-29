@@ -1,0 +1,201 @@
+---
+import { site } from '../data/site';
+// Scrollytelling: a pinned cross-section of a St. Louis house that changes as
+// the reader scrolls through one real-world water loss, from burst pipe to rebuild.
+const chapters = [
+  { clock: '2:14 AM', tag: 'The pipe', h: 'A supply line lets go in the basement.', p: 'It is the most common call we get. A washer hose, a water heater or a frozen pipe fails while everyone is asleep. A burst line can put hundreds of gallons on the floor in an hour.' },
+  { clock: '2:16 AM', tag: 'The call', h: 'You call. A person answers.', p: `Not a call center, not a voicemail. We ask what happened, tell you how to shut off the water and stay safe, and dispatch a crew from our shop on Lackland Road.` },
+  { clock: `Within ${site.responseHours} hrs`, tag: 'On-site', h: 'The truck is in your driveway.', p: 'Our crews are on-site in about two hours, day or night, across St. Louis and St. Charles counties. Pumps and extractors come off the truck first.' },
+  { clock: 'Days 1 to 3', tag: 'Dry', h: 'Water out. Air movers on. Readings every day.', p: 'Moisture meters and thermal imaging show where water traveled inside walls and floors. Dehumidifiers run until the structure reads dry, so mold never gets a start.' },
+  { clock: 'Day 3', tag: 'The claim', h: 'Your adjuster gets everything they need.', p: 'Photos, daily moisture logs and an itemized estimate in the format insurers use. We meet your adjuster so the claim covers the real damage.' },
+  { clock: 'Week 2', tag: 'Rebuild', h: 'Same team puts it back together.', p: 'Drywall, flooring, trim and paint. No second contractor, no starting over. When we leave, it looks like it never happened.' },
+];
+---
+<section class="story" aria-labelledby="story-h">
+  <div class="wrap story__intro">
+    <h2 id="story-h">Anatomy of a 2 a.m. call</h2>
+    <p class="lede">Scroll through a real water loss, start to finish. This is what happens after you call First Responders.</p>
+  </div>
+
+  <div class="story__body wrap">
+    <div class="stage" data-step="-1" aria-hidden="true">
+      <div class="stage__clock"><span class="stage__time">2:14 AM</span><span class="stage__moist">Moisture <b>--</b></span></div>
+      <svg class="scene" viewBox="0 0 600 540" role="img">
+        <defs>
+          <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0c1828"/><stop offset="1" stop-color="#1d3556"/></linearGradient>
+          <clipPath id="base"><rect x="150" y="402" width="300" height="108"/></clipPath>
+        </defs>
+        <rect class="sky" width="600" height="400" fill="url(#sky)"/>
+        <g class="stars" fill="#fff" opacity=".7"><circle cx="60" cy="50" r="1.4"/><circle cx="130" cy="90" r="1"/><circle cx="520" cy="40" r="1.6"/><circle cx="470" cy="110" r="1"/><circle cx="560" cy="160" r="1.2"/><circle cx="40" cy="170" r="1"/></g>
+        <g class="rain" stroke="#7fa7d4" stroke-width="2" stroke-linecap="round" opacity=".55"><path d="M30 20 l-6 18"/><path d="M90 120 l-6 18"/><path d="M150 40 l-6 18"/><path d="M210 10 l-6 18"/><path d="M260 30 l-6 18"/><path d="M330 20 l-6 18"/><path d="M380 50 l-6 18"/><path d="M440 20 l-6 18"/><path d="M500 140 l-6 18"/><path d="M560 60 l-6 18"/><path d="M60 250 l-6 18"/><path d="M540 260 l-6 18"/><path d="M110 330 l-6 18"/><path d="M580 320 l-6 18"/><path d="M20 140 l-6 18"/></g>
+        <circle class="moon" cx="520" cy="80" r="22" fill="#e9eef5"/>
+        <rect class="ground" y="400" width="600" height="140" fill="#3b3226"/>
+        <rect y="398" width="600" height="6" fill="#4d6b3c"/>
+        <!-- house -->
+        <polygon class="roof" points="120,170 300,70 480,170" fill="#2a3442"/>
+        <polygon points="120,170 300,70 480,170" fill="none" stroke="#f2c230" stroke-width="0" class="roof__edge"/>
+        <rect x="150" y="170" width="300" height="230" fill="#c9cfd6"/>
+        <rect x="150" y="282" width="300" height="6" fill="#8a96a4"/>
+        <g class="win">
+          <rect x="185" y="200" width="56" height="56" /><rect x="359" y="200" width="56" height="56" />
+          <rect x="185" y="312" width="56" height="56" />
+        </g>
+        <rect x="272" y="320" width="56" height="80" fill="#5a3a2a"/><circle cx="318" cy="362" r="3" fill="#f2c230"/>
+        <!-- basement -->
+        <rect x="150" y="402" width="300" height="108" class="bwall" fill="#8c8273"/>
+        <rect x="150" y="504" width="300" height="8" fill="#5e5649"/>
+        <g clip-path="url(#base)">
+          <rect class="water" x="150" y="402" width="300" height="108" fill="#3d8fd1" opacity=".85"/>
+          <path class="wave" d="M150 0 q15 -6 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 v20 h-300z" fill="#6fb2e6" opacity=".7"/>
+        </g>
+        <rect x="160" y="414" width="200" height="6" fill="#6b6b6b"/>
+        <g class="spray" stroke="#9fd0f5" stroke-width="3" stroke-linecap="round" fill="none">
+          <path d="M300 420 q-10 20 -26 40"/><path d="M300 420 q0 24 -4 50"/><path d="M300 420 q12 22 24 42"/><path d="M300 420 q22 12 40 30"/>
+        </g>
+        <!-- drying gear -->
+        <g class="gear">
+          <g class="fan" transform="translate(200 478)"><circle r="20" fill="#13233a"/><g class="blades" fill="#f2c230"><path d="M0 0 L-4 -17 L4 -17Z"/><path d="M0 0 L-4 -17 L4 -17Z" transform="rotate(120)"/><path d="M0 0 L-4 -17 L4 -17Z" transform="rotate(240)"/></g></g>
+          <g class="fan" transform="translate(400 478)"><circle r="20" fill="#13233a"/><g class="blades" fill="#f2c230"><path d="M0 0 L-4 -17 L4 -17Z"/><path d="M0 0 L-4 -17 L4 -17Z" transform="rotate(120)"/><path d="M0 0 L-4 -17 L4 -17Z" transform="rotate(240)"/></g></g>
+          <rect x="280" y="452" width="40" height="50" rx="4" fill="#c8312b"/><rect x="287" y="460" width="26" height="6" fill="#fff" opacity=".6"/>
+        </g>
+        <!-- phone -->
+        <g class="phone" transform="translate(212 330)"><rect x="-10" y="-18" width="20" height="34" rx="3" fill="#f2c230"/><g class="rings" stroke="#f2c230" stroke-width="2" fill="none"><path d="M16 -14 a14 14 0 0 1 0 22"/><path d="M22 -20 a22 22 0 0 1 0 34"/></g></g>
+        <!-- truck -->
+        <g class="truck">
+          <rect x="0" y="352" width="96" height="40" rx="3" fill="#fff"/>
+                    <rect x="96" y="362" width="34" height="30" rx="3" fill="#fff"/><rect x="102" y="367" width="22" height="12" fill="#13233a"/>
+          <rect x="10" y="372" width="76" height="8" fill="#f2c230"/>
+          <rect class="lightbar l1" x="104" y="356" width="10" height="6" fill="#c8312b"/><rect class="lightbar l2" x="116" y="356" width="10" height="6" fill="#3d8fd1"/>
+          <circle cx="24" cy="394" r="9" fill="#13233a"/><circle cx="108" cy="394" r="9" fill="#13233a"/>
+        </g>
+        <!-- clipboard -->
+        <g class="claim" transform="translate(470 240)"><rect width="70" height="90" rx="4" fill="#fff"/><rect x="22" y="-6" width="26" height="12" rx="3" fill="#13233a"/><g stroke="#56667a" stroke-width="3"><path d="M12 24h46M12 38h46M12 52h30"/></g><path d="M14 68l8 8 16-16" stroke="#2e9e5b" stroke-width="5" fill="none"/></g>
+        <!-- done -->
+        <g class="done" transform="translate(300 456)"><circle r="30" fill="#2e9e5b"/><path d="M-13 1l9 9 18-18" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+      </svg>
+      <ol class="stage__dots">{chapters.map((_, i) => <li data-i={i}></li>)}</ol>
+    </div>
+
+    <div class="chapters">
+      {chapters.map((c, i) => (
+        <article class="chapter" data-step={i} data-clock={c.clock}>
+          <p class="chapter__tag"><span>{c.clock}</span> {c.tag}</p>
+          <h3>{c.h}</h3>
+          <p>{c.p}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const stage = document.querySelector<HTMLElement>('.stage');
+  const time = document.querySelector<HTMLElement>('.stage__time');
+  const moist = document.querySelector<HTMLElement>('.stage__moist b');
+  const readings = ['--', '--', '41%', '18%', '12%', '11%'];
+  if (stage && time && moist) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const el = e.target as HTMLElement;
+        const i = Number(el.dataset.step);
+        stage.dataset.step = String(i);
+        time.textContent = el.dataset.clock || '';
+        moist.textContent = readings[i];
+        document.querySelectorAll('.chapter').forEach((c) => c.classList.toggle('is-on', c === el));
+      });
+    }, { rootMargin: matchMedia('(max-width: 899px)').matches ? '-72% 0px -24% 0px' : '-45% 0px -45% 0px' });
+    document.querySelectorAll('.chapter').forEach((c) => io.observe(c));
+  }
+</script>
+
+<style>
+  .story { background: var(--navy); color: #c4d0de; padding-block: clamp(64px, 10vw, 140px) 40px; }
+  .story h2 { color: #fff; font-size: var(--t-5); max-width: 12ch; }
+  .story .lede { color: #9fb0c4; }
+  .story__body { display: grid; gap: 0; margin-top: 48px; }
+  @media (min-width: 900px) { .story__body { grid-template-columns: 1.15fr 1fr; gap: 64px; } }
+
+  .stage { position: sticky; top: 90px; height: min(78vh, 640px); display: grid; grid-template-rows: auto 1fr auto; z-index: 1; }
+  @media (max-width: 899px) { .stage { top: 72px; height: 50vh; background: var(--navy); padding: 8px 0; z-index: 3; box-shadow: 0 12px 16px -8px var(--navy); } }
+  .stage__clock { display: flex; gap: 12px; justify-content: space-between; align-items: baseline; font-family: var(--display); color: #fff; }
+  .stage__time { font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 800; color: var(--hivis); line-height: 1; font-variant-numeric: tabular-nums; }
+  .stage__moist { font-size: 1.2rem; font-weight: 600; color: #9fb0c4; }
+  .stage__moist b { color: #fff; font-size: 1.6rem; }
+  .scene { width: 100%; height: 100%; }
+  .stage__dots { display: flex; gap: 8px; list-style: none; padding: 0; margin: 8px 0 0; }
+  .stage__dots li { height: 4px; flex: 1; background: var(--navy-3); transition: background .4s; }
+
+  .chapters { position: relative; z-index: 2; }
+  .chapter { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; opacity: .28; transition: opacity .5s; }
+  .chapter.is-on { opacity: 1; }
+  .chapter:last-child { min-height: 70vh; }
+  @media (max-width: 899px) { .chapter { min-height: 75vh; justify-content: center; } .chapter:first-child { margin-top: 30vh; } .chapter:last-child { min-height: 90vh; } .chapter > * { background: var(--navy-2); margin: 0 !important; } .chapter__tag { padding: 14px 18px 0; } .chapter h3 { padding: 6px 18px 0; } .chapter p:last-child { padding: 6px 18px 18px; } }
+  .chapter__tag { font-weight: 700; color: var(--hivis); margin: 0 0 10px; }
+  .chapter__tag span { font-family: var(--display); font-size: 1.3rem; margin-right: 6px; }
+  .chapter h3 { color: #fff; font-family: var(--display); font-weight: 800; font-size: var(--t-4); line-height: 1; margin-bottom: .35em; }
+  .chapter p:last-child { font-size: var(--t-1); line-height: 1.5; }
+
+  /* scene states */
+  .scene * { transition: transform .9s cubic-bezier(.2,.8,.2,1), opacity .6s, fill .8s; }
+  .water { transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(.03); }
+  .wave { transform: translateY(506px); }
+  .spray, .gear, .phone, .claim, .done { opacity: 0; }
+  .truck { transform: translateX(660px); }
+  .win rect { fill: #3a4d66; }
+  .done { transform: translate(300px, 456px) scale(.4); }
+  .claim { transform: translate(470px, 260px); }
+
+  /* 0 pipe bursts */
+  [data-step="0"] .spray { opacity: 1; animation: spurt .4s infinite alternate; }
+  [data-step="0"] .water { transform: scaleY(.42); }
+  [data-step="0"] .wave { transform: translateY(464px); }
+  /* 1 the call */
+  [data-step="1"] .spray { opacity: .4; }
+  [data-step="1"] .water { transform: scaleY(.6); }
+  [data-step="1"] .wave { transform: translateY(445px); }
+  [data-step="1"] .phone { opacity: 1; }
+  [data-step="1"] .rings { animation: ring .6s infinite alternate; }
+  [data-step="1"] .win rect:nth-child(3) { fill: #f6d77a; }
+  /* 2 truck on-site */
+  [data-step="2"] .water { transform: scaleY(.5); }
+  [data-step="2"] .wave { transform: translateY(456px); }
+  [data-step="2"] .truck, [data-step="3"] .truck, [data-step="4"] .truck { transform: translateX(448px); }
+  [data-step="2"] .lightbar { animation: flash .5s infinite alternate; }
+  [data-step="2"] .l2 { animation-delay: .25s; }
+  [data-step="2"] .win rect { fill: #f6d77a; }
+  /* 3 drying */
+  [data-step="3"] .gear, [data-step="4"] .gear { opacity: 1; }
+  [data-step="3"] .blades { animation: spin .45s linear infinite; }
+  [data-step="4"] .blades { animation: spin 1.4s linear infinite; }
+  [data-step="3"] .sky, [data-step="4"] .sky, [data-step="5"] .sky { fill: #8fb9e2; }
+  .rain { animation: rain .6s linear infinite; }
+  [data-step="3"] .rain, [data-step="4"] .rain, [data-step="5"] .rain { opacity: 0; }
+  [data-step="3"] .stars, [data-step="4"] .stars, [data-step="5"] .stars,
+  [data-step="3"] .moon, [data-step="4"] .moon, [data-step="5"] .moon { opacity: 0; }
+  [data-step="3"] .win rect, [data-step="4"] .win rect, [data-step="5"] .win rect { fill: #cfe3f5; }
+  /* 4 claim */
+  [data-step="4"] .claim { opacity: 1; transform: translate(470px, 240px); }
+  /* 5 rebuilt */
+  [data-step="5"] .bwall { fill: #e4dccd; }
+  [data-step="5"] .done { opacity: 1; transform: translate(300px, 456px) scale(1); }
+
+  .stage[data-step="0"] .stage__dots li:nth-child(-n+1),
+  .stage[data-step="1"] .stage__dots li:nth-child(-n+2),
+  .stage[data-step="2"] .stage__dots li:nth-child(-n+3),
+  .stage[data-step="3"] .stage__dots li:nth-child(-n+4),
+  .stage[data-step="4"] .stage__dots li:nth-child(-n+5),
+  .stage[data-step="5"] .stage__dots li:nth-child(-n+6) { background: var(--hivis); }
+
+  .blades { transform-box: fill-box; transform-origin: center; }
+  @keyframes rain { from { transform: translateY(-20px); } to { transform: translateY(20px); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes flash { to { opacity: .2; } }
+  @keyframes ring { to { opacity: .2; } }
+  @keyframes spurt { to { transform: translateY(2px); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scene * { transition: none; animation: none !important; }
+    .chapter { opacity: 1; }
+  }
+</style>

@@ -1,0 +1,9 @@
+---
+import Page from '../layouts/Page.astro';
+import { allRoutes } from '../data/routes';
+const routes = allRoutes();
+---
+<Page title="Site Map | First Responders Roofing & Restoration" description="Every page on the First Responders Roofing & Restoration website." h1="Site map" crumbs={[{ name: 'Site map', href: '/sitemap/' }]} cta={false}>
+  <section class="section"><div class="wrap"><ul class="sm">{routes.map((r) => <li><a href={r.path}>{r.name}</a></li>)}</ul></div></section>
+</Page>
+<style>.sm { columns: 3 220px; line-height: 2; padding-left: 1.1em; }</style>
