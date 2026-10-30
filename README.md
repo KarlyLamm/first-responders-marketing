@@ -41,7 +41,7 @@ npm run build    # outputs to dist/
 
 ## CONFIRM before launch (owner sign-off)
 
-- [ ] Phone `(314) 644-8800` and SMS `(314) 943-6606` are the numbers to publish everywhere
+- [ ] Phone and SMS are both `(314) 644-8800` (one line for call and text) and is the number to publish everywhere
 - [ ] Map pin coordinates in `site.ts` (copy from Google Business Profile)
 - [ ] "On-site in about 2 hours" promise and 24/7 answering are accurate
 - [ ] Giveback wording in `site.giveback` (exact amount or percentage if they want to publish it)

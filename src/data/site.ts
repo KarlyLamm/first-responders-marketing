@@ -12,8 +12,8 @@ export const site = {
   url: 'https://firstrespondersrestoration.us',
   phone: '(314) 644-8800',
   phoneHref: 'tel:+13146448800',
-  sms: '(314) 943-6606', // CONFIRM: listed on BBB as SMS line
-  smsHref: 'sms:+13149436606',
+  sms: '(314) 644-8800', // same line as calls
+  smsHref: 'sms:+13146448800',
   email: null as string | null, // CONFIRM: add office email
   address: {
     street: '11785 Lackland Rd',
